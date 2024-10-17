@@ -1,1 +1,62 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+  scroll-behavior: smooth;
+  background-color: var(--second-bg-color);
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 1rem;
+}
+
+:root {
+  --main-bg-color: #1976d2;
+  --second-bg-color: rgb(239, 246, 255);
+  --overlap-margin: -5em;
+  --navbar-height: 60px;
+}
+
+@media only screen and (min-width: 768px) {
+  .mobile-only {
+    display: none !important;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .laptop-only {
+    display: none !important;
+  }
+
+  .flex-column-on-mobile {
+    flex-direction: column;
+  }
+  html {
+    font-size: 75%;
+  }
+
+  h1 {
+    font-size: 2rem; /* 90% of 32px = 28.8px */
+  }
+
+  h2 {
+    font-size: 1.8rem; /* 90% of 28.8px */
+  }
+  h3 {
+    font-size: 1.75rem; /* 28px */
+  }
+
+  h4 {
+    font-size: 1.5rem; /* 24px */
+  }
+
+  h5 {
+    font-size: 1.25rem; /* 20px */
+  }
+
+  h6 {
+    font-size: 1rem; /* 16px */
+  }
+}
