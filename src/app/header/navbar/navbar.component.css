@@ -1,51 +1,51 @@
 .navbar {
-	position: fixed;
-	z-index: 1030;
-	margin: 0;
-	padding: 0;
-	top: 0;
-	left: 0;
-	right: 0;
-	height: var(--navbar-height);
-	display: flex;
-	background-color: var(--main-bg-color);
-	color: white;
-	font-weight: 600;
+  position: sticky;
+  z-index: 1030;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--navbar-height);
+  display: flex;
+  background-color: var(--main-bg-color);
+  color: white;
+  font-weight: 600;
 }
 
 .navbar li {
-	text-transform: uppercase;
-	height: var(--navbar-height);
-	flex: 1 0;
+  text-transform: uppercase;
+  height: var(--navbar-height);
+  flex: 1 0;
 }
 
 .spacer {
-	flex: 2;
+  flex: 2;
 }
 
 a,
 a:visited,
 a:hover {
-	height: 100%;
-	width: 100%;
-	display: inline-block;
-	text-decoration: none;
-	color: aliceblue;
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+  text-decoration: none;
+  color: aliceblue;
 
-	display: flex; /* Use flex to center the text */
-	align-items: center; /* Center vertically */
-	justify-content: center; /* Center horizontally */
+  display: flex; /* Use flex to center the text */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
 }
 
 a:hover {
-	font-weight: 800;
-	color: black;
+  font-weight: 800;
+  color: black;
 }
 
 .nav-active {
-	background-color: aliceblue;
+  background-color: aliceblue;
 }
 .nav-active a {
-	color: black;
-	font-weight: 800;
+  color: black;
+  font-weight: 800;
 }
