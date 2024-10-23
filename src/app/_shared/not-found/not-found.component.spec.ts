@@ -5,7 +5,7 @@ import { DebugElement } from '@angular/core';
 
 import { NotFoundComponent } from './not-found.component';
 
-describe('EfezzegComponent', () => {
+describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
   let fixture: ComponentFixture<NotFoundComponent>;
 

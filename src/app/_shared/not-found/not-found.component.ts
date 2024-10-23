@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-not-found',
@@ -8,9 +8,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class NotFoundComponent implements OnInit {
   customMessage: string = 'default';
-  constructor(private activatedRoute: ActivatedRoute) {
+  requestedUrl!: string;
+
+  constructor(private activatedRoute: ActivatedRoute, private router: Router) {
     this.customMessage = this.activatedRoute.snapshot.data['message'];
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.requestedUrl = this.router.url;
+  }
 }
