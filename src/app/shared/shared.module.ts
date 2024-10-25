@@ -15,6 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
     MaterialModule,
   ],
   declarations: [],
-  exports: [MaterialModule, FontAwesomeModule, HttpClientModule],
+  exports: [MaterialModule, FontAwesomeModule, HttpClientModule, FormsModule],
 })
 export class SharedModule {}

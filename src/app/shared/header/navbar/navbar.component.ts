@@ -7,13 +7,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
   @Input() title!: string;
-  //@Output() dataFromChild = new EventEmitter<string>();
 
   constructor() {}
 
   ngOnInit() {}
-
-  /*sendData() {
-    this.dataFromChild.emit('Hello from Child!');
-  }*/
 }

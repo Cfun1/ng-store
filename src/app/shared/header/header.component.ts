@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedModule } from '../_shared/shared.module';
 
 @Component({
   selector: 'app-header',
