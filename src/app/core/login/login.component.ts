@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/authentication.service';
-import { User } from '../user';
+import { mockUser } from '../user';
 
 @Component({
   selector: 'app-login',
@@ -22,14 +22,11 @@ export class LoginComponent implements OnInit
 
   login(form: NgForm)
   {
-    let u = new User("userName", "pass");
-
-    this.authService.login(u);
+    this.authService.login(mockUser);
   }
 
   logout(form: NgForm)
   {
-    let u = new User("userName", "pass");
-    this.authService.logout(u);
+    this.authService.logout(mockUser);
   }
 }
