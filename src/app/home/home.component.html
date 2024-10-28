@@ -1,3 +1,33 @@
-<p>
-  home works!
-</p>
+<div *ngIf="(products$ | async) !== undefined" class="products-container">
+  <div class="container mt-5">
+    <h1 class="mb-4 text-center">Products list</h1>
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr class="text-center align-middle">
+          <th>ID</th>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Description</th>
+          <th>Category</th>
+          <th>Image</th>
+          <th>Rating Rate</th>
+          <th>Rating Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Example Product Row -->
+        <tr *ngFor="let product of products$ |async" class="text-center align-middle">
+          <td>{{product.id}}</td>
+          <td>{{product.title}}</td>
+          <td>{{product.price | currency}}</td>
+          <td>{{product.description}}</td>
+          <td>{{product.category}}</td>
+          <td><img src="{{product.image}}" alt="Product Image" class="img-thumbnail"></td>
+          <td>{{product.rating.rate}}</td>
+          <td>{{product.rating.count}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
