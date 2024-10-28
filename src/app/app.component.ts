@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css'],
   providers: [],
 })
-export class AppComponent implements OnInit {
-  title = 'ng-store';
+export class AppComponent implements OnInit
+{
+  navbarTitle = 'ng Store';
 
-  constructor() {}
+  constructor () { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }
