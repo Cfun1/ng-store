@@ -1,0 +1,47 @@
+<div class="col-md-6  justify-content-center container">
+  <div class="card">
+    <div class="card-header text-center">
+      <h3>Login</h3>
+    </div>
+    <div class="card-body">
+      <form #loginForm="ngForm">
+        <div class="form-group mb-3">
+          <label for="email">Email address</label>
+          <input ngModel name="userName" #userName="ngModel"
+                 type="email"
+                 class="form-control"
+                 id="email"
+                 placeholder="Enter email" />
+        </div>
+        <div class="form-group mb-3">
+          <label for="password">Password</label>
+          <input name="password" type="password" id="password" minlength="8"
+                 placeholder="Password" class="form-control"
+                 #password="ngModel" ngModel required />
+
+          <!-- valdiation errors -->
+          <div *ngIf="password.errors && password.touched">
+            <span *ngIf="password.errors['required']" class="invalid">password is required</span>
+            <span *ngIf="password.errors['minlength']" class="invalid">Password is too short (minimum length:
+              {{password.errors['minlength'].requiredLength}})</span>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="cpassword">Confirm Password</label>
+          <input ngModel name="cpassword" #cpassword="ngModel" required
+                 type="password"
+                 class="form-control"
+                 id="cpassword"
+                 placeholder="Password" />
+          <span *ngIf="!cpassword.valid" class="invalid">password should be same</span>
+        </div>
+        <button *ngIf="!(isLoggedIn$ | async)" type="submit" class="btn btn-primary w-100"
+                (click)="login(loginForm)">Login</button>
+
+        <button *ngIf="isLoggedIn$ | async" type="submit" class="btn btn-primary w-100"
+                (click)="logout(loginForm)">Logout</button>
+      </form>
+    </div>
+  </div>
+</div>

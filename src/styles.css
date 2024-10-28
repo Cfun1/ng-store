@@ -19,6 +19,10 @@ body {
   --navbar-height: 60px;
 }
 
+.invalid {
+  color: red;
+}
+
 @media only screen and (min-width: 768px) {
   .mobile-only {
     display: none !important;
