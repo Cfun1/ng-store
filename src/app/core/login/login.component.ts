@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/authentication.service';
-import { mockUser } from '../user';
+import { mockUser } from '../user/user';
 
 @Component({
   selector: 'app-login',
