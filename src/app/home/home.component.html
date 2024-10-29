@@ -1,4 +1,8 @@
-<div *ngIf="(products$ | async) !== undefined" class="products-container">
+<ng-template #noProducts>
+  <span>No products Found! Something went wrong</span>
+</ng-template>
+
+<div *ngIf="(products$ | async) !== null; else noProducts" class="products-container">
   <div class="container mt-5">
     <h1 class="mb-4 text-center">Products list</h1>
     <table class="table table-bordered table-striped">
@@ -29,5 +33,4 @@
       </tbody>
     </table>
   </div>
-
 </div>

@@ -16,6 +16,12 @@ export class HomeComponent implements OnInit
 
   ngOnInit()
   {
+    this.loadProducts();
+  }
+
+
+  loadProducts() 
+  {
     this.products$ = this.productservice.getproducts$();
   }
 }

@@ -8,12 +8,12 @@ import { Product } from './product';
 })
 export class ProductService
 {
-  private apiEndpoint = 'https://fakestoreapi.com/products';
+  private apiProductsEndpoint = 'https://fakestoreapi.com/products';
 
   constructor(private http: HttpClient) { }
 
   getproducts$(): Observable<Product[]>
   {
-    return this.http.get<Product[]>(this.apiEndpoint);
+    return this.http.get<Product[]>(this.apiProductsEndpoint);
   }
 }

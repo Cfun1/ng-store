@@ -3,18 +3,18 @@ export interface User
       address: {
             geolocation: {
                   lat: string,
-                  long: string
+                  long: string;
             },
             city: string,
             street: string,
             number: number,
-            zipcode: string
+            zipcode: string;
       };
       id: number;
       username: string;
       name: {
             firstname: string,
-            lastname: string
+            lastname: string;
       };
       email: string;
       password: string;
