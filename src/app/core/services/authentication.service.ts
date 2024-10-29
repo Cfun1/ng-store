@@ -10,15 +10,11 @@ import { UserService } from '../user/user.service';
 export class AuthService
 {
   private isAuthenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isLoggedIn$: Observable<boolean> = this.isAuthenticated$.asObservable();
 
   constructor(private activeRoute: ActivatedRoute,
     private router: Router,
     private userService: UserService) { }
-
-  isLoggedIn$(): Observable<boolean>
-  {
-    return this.isAuthenticated$.asObservable();
-  }
 
   login(user: User)
   {
@@ -28,7 +24,7 @@ export class AuthService
       {
         this.isAuthenticated$.next(true);
 
-        //QUESTION HARI: how to avoid magic string? hard coding
+        //QUESTION: how to avoid magic string? hard coding
         let nextRoute = this.activeRoute.snapshot.queryParamMap.get('redirectTo');
         if (nextRoute !== null)
           this.router.navigate([nextRoute]);

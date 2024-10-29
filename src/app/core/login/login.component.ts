@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit
 
   ngOnInit()
   {
-    this.isLoggedIn$ = this.authService.isLoggedIn$();
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
   }
 
   login(form: NgForm)
