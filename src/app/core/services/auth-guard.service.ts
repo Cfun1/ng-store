@@ -25,6 +25,10 @@ export class AuthGuardService implements CanActivate
   }
 }
 
+export const QUERY_PARAMS = {
+  REDIRECT_TO: 'redirectTo'
+};
+
 export interface RedirectToQueryParams
 {
   redirectTo: string;

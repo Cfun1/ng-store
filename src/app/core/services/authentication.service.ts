@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../user/user';
 import { UserService } from '../user/user.service';
+import { QUERY_PARAMS } from './auth-guard.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +25,14 @@ export class AuthService
       {
         this.isAuthenticated$.next(true);
 
-        //QUESTION: how to avoid magic string? hard coding
-        let nextRoute = this.activeRoute.snapshot.queryParamMap.get('redirectTo');
+        //QUESTION: better way to avoid magic string/ hard coding?
+        let nextRoute = this.activeRoute.snapshot.queryParamMap.get(QUERY_PARAMS.REDIRECT_TO);
         if (nextRoute !== null)
           this.router.navigate([nextRoute]);
       }
     });
+
+    //is it necessary to unsubscribe somehow ? using rxjs operators approach made the code much larger
   }
 
   logout(user: User)
