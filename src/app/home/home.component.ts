@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AuthService } from '../core/services/authentication.service';
 import { Product } from '../features/product/product';
 import { ProductService } from '../features/product/product.service';
 
@@ -11,8 +12,9 @@ import { ProductService } from '../features/product/product.service';
 export class HomeComponent implements OnInit
 {
 
-  constructor(private productservice: ProductService) { }
+  constructor(private productservice: ProductService, private authService: AuthService) { }
   products$!: Observable<Product[]>;
+  isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
 
   ngOnInit()
   {
@@ -20,7 +22,7 @@ export class HomeComponent implements OnInit
   }
 
 
-  loadProducts() 
+  loadProducts()
   {
     this.products$ = this.productservice.getproducts$();
   }

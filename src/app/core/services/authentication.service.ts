@@ -12,6 +12,7 @@ export class AuthService
 {
   private isAuthenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoggedIn$: Observable<boolean> = this.isAuthenticated$.asObservable();
+  currentUser!: User | undefined;
 
   constructor(private activeRoute: ActivatedRoute,
     private router: Router,
@@ -24,7 +25,7 @@ export class AuthService
       if (users.some(u => u.username === user.username && u.password === user.password))
       {
         this.isAuthenticated$.next(true);
-
+        this.currentUser = user;
         //QUESTION: better way to avoid magic string/ hard coding?
         let nextRoute = this.activeRoute.snapshot.queryParamMap.get(QUERY_PARAMS.REDIRECT_TO);
         if (nextRoute !== null)
@@ -35,8 +36,10 @@ export class AuthService
     //is it necessary to unsubscribe somehow ? using rxjs operators approach made the code much larger
   }
 
-  logout(user: User)
+  logout()
   {
+    this.currentUser = undefined;
     this.isAuthenticated$.next(false);
+    this.router.navigate(['/home']);
   }
 }

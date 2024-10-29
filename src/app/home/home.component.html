@@ -4,7 +4,11 @@
 
 <div *ngIf="(products$ | async) !== null; else noProducts" class="products-container">
   <div class="container mt-5">
-    <h1 class="mb-4 text-center">Products list</h1>
+    <div class="d-flex mb-4">
+      <h1 class="text-center flex-grow-1">Products list</h1>
+      <button *ngIf="isLoggedIn$ | async" mat-raised-button color="Accent">Add Product</button>
+    </div>
+
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
         <tr class="text-center align-middle">

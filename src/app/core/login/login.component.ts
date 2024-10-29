@@ -27,6 +27,6 @@ export class LoginComponent implements OnInit
 
   logout(form: NgForm)
   {
-    this.authService.logout(mockUser);
+    this.authService.logout();
   }
 }

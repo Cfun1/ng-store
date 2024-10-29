@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/core/services/authentication.service';
 import { User } from 'src/app/core/user/user';
 import { UserService } from 'src/app/core/user/user.service';
 
@@ -11,13 +12,18 @@ import { UserService } from 'src/app/core/user/user.service';
 export class DashboardComponent implements OnInit
 {
   users$!: Observable<User[]>;
+  currenUser!: User | undefined;
+  isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private authService: AuthService) { }
 
   ngOnInit()
   {
     this.getUsers$();
+    this.currenUser = this.authService.currentUser;
   }
+
+  logout() { this.authService.logout(); }
 
   getUsers$()
   {
