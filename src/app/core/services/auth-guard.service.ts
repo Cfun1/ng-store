@@ -10,7 +10,6 @@ export class AuthGuardService implements CanActivate
 {
   constructor(private router: Router, private authService: AuthService) { }
 
-
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree
   {
     return this.authService.isLoggedIn$().pipe<boolean>(
@@ -19,9 +18,14 @@ export class AuthGuardService implements CanActivate
         if (isLoggedIn)
           return true; // Allow access
 
-        this.router.navigate(['/login']); // Redirect to login
+        this.router.navigate(['/login'], { queryParams: { redirectTo: state.url } as RedirectToQueryParams }); // Redirect to login
         return false; // Deny access to satisfy the compiler
       })
     );
   }
+}
+
+export interface RedirectToQueryParams
+{
+  redirectTo: string;
 }
