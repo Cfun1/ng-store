@@ -12,12 +12,13 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    title: 'Home'
   },
 
-  { path: 'home', component: HomeComponent },
-  { path: 'cart', component: CartComponent },
+  { path: 'home', component: HomeComponent, title: 'Home' },
+  { path: 'cart', component: CartComponent, title: 'Cart' },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, title: 'Login' },
 
   {
     path: '**',

@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MaterialModule } from './material/material.module';
 
 @NgModule({
   imports: [
@@ -12,9 +11,9 @@ import { MaterialModule } from './material/material.module';
     FontAwesomeModule,
     FormsModule,
     MatButtonModule,
-    MaterialModule,
+    //MaterialModule
   ],
   declarations: [],
-  exports: [MaterialModule, FontAwesomeModule, HttpClientModule, FormsModule],
+  exports: [FontAwesomeModule, HttpClientModule, FormsModule],
 })
 export class SharedModule { }
