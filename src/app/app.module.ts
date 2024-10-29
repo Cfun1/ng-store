@@ -26,6 +26,7 @@ import { SharedModule } from './shared/shared.module';
   imports: [BrowserModule, SharedModule, AppRoutingModule],
   providers: [TitleCasePipe,
     { provide: TitleStrategy, useClass: TitleStrategyManagerService }
-  ], bootstrap: [AppComponent],
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
