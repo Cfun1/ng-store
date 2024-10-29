@@ -1,0 +1,7 @@
+tr th {
+      text-transform: lowercase;
+}
+
+tr th::first-letter {
+      text-transform: capitalize;
+}

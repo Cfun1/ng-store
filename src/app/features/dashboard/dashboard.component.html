@@ -1,3 +1,34 @@
-<p>
-  dashboard works!
-</p>
+<div *ngIf="(users$ | async) !== null; else apiFail" class="users-container">
+  <div class="container mt-5">
+    <h1 class="mb-4 text-center">Users list</h1>
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr class="text-center align-middle">
+          <th>ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>password</th>
+          <th>firstname</th>
+          <th>lastname</th>
+          <th>phone</th>
+          <th>city</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Example Product Row -->
+        <tr *ngFor="let user of users$ | async" class="text-center align-middle">
+          <td>{{user.id}}</td>
+          <td>{{user.username}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.password}}</td>
+          <td>{{user.name.firstname}}</td>
+          <td>{{user.name.lastname}}</td>
+          <td>{{user.phone}}</td>
+          <td>{{user.address.city}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #apiFail class="invalid">Something went wrong...</ng-template>
