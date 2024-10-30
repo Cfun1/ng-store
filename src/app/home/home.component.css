@@ -52,6 +52,7 @@ mat-card-actions {
       bottom: 30px;
       right: 30px;
       z-index: 2;
+      font-size: 2em;
 
       &:hover {
             cursor: pointer;

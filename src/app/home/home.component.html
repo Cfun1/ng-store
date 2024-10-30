@@ -3,7 +3,8 @@
 </ng-template>
 
 
-<mat-icon (click)="goToCart()" class="cart-count-badge" matBadge="{{cartCount$ | async}}" matBadgeColor="warn">home</mat-icon>
+<mat-icon (click)="goToCart()" class="cart-count-badge text-muted" matBadge="{{cartCount$ | async}}"
+          matBadgeColor="warn">shopping_cart</mat-icon>
 
 <div *ngIf="(products$ | async) !== null; else noProducts" class="products-container">
   <div class="container">
