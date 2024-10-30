@@ -7,8 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './core/login/login.component';
 import { TitleStrategyManagerService } from './core/services/title-strategy-manager.service';
-import { CartComponent } from './features/cart/cart.component';
-import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { FeaturesModule } from './features/features.module';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
@@ -23,10 +22,8 @@ import { SharedModule } from './shared/shared.module';
     NavbarComponent,
     FooterComponent,
     LoginComponent,
-    CartComponent,
-    DashboardComponent
   ],
-  imports: [BrowserModule, SharedModule, AppRoutingModule, BrowserAnimationsModule],
+  imports: [BrowserModule, SharedModule, AppRoutingModule, BrowserAnimationsModule, FeaturesModule],
   providers: [TitleCasePipe,
     { provide: TitleStrategy, useClass: TitleStrategyManagerService }
   ],
