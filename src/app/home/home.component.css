@@ -1,0 +1,48 @@
+.container {
+      margin-top: 20px;
+}
+
+.main-products-grid {
+      margin-top: 20px;
+}
+
+.row {
+      display: flex;
+      flex-wrap: wrap;
+}
+
+.col-md-4 {
+      display: flex;
+}
+
+mat-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 2em 3em;
+}
+
+mat-card-content {
+      flex-grow: 1;
+}
+
+.img-thumbnail {
+      max-height: 200px;
+      object-fit: contain;
+      margin: 0;
+}
+
+.image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+}
+
+.price {
+      font-size: 1.5em;
+}
+
+mat-card-actions {
+      text-align: center;
+}

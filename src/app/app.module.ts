@@ -1,6 +1,7 @@
 import { TitleCasePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TitleStrategy } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,7 +24,7 @@ import { SharedModule } from './shared/shared.module';
     LoginComponent,
     DashboardComponent
   ],
-  imports: [BrowserModule, SharedModule, AppRoutingModule],
+  imports: [BrowserModule, SharedModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [TitleCasePipe,
     { provide: TitleStrategy, useClass: TitleStrategyManagerService }
   ],

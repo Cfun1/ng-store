@@ -1,11 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
-
 html,
 body {
   height: 100%;
   scroll-behavior: smooth;
   background-color: var(--second-bg-color);
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -23,6 +22,11 @@ body {
   color: red;
 }
 
+button[mat-raised-button] {
+  background-color: var(--main-bg-color);
+  color: white;
+}
+
 @media only screen and (min-width: 768px) {
   .mobile-only {
     display: none !important;
@@ -37,30 +41,38 @@ body {
   .flex-column-on-mobile {
     flex-direction: column;
   }
+
   html {
     font-size: 75%;
   }
 
   h1 {
-    font-size: 2rem; /* 90% of 32px = 28.8px */
+    font-size: 2rem;
+    /* 90% of 32px = 28.8px */
   }
 
   h2 {
-    font-size: 1.8rem; /* 90% of 28.8px */
+    font-size: 1.8rem;
+    /* 90% of 28.8px */
   }
+
   h3 {
-    font-size: 1.75rem; /* 28px */
+    font-size: 1.75rem;
+    /* 28px */
   }
 
   h4 {
-    font-size: 1.5rem; /* 24px */
+    font-size: 1.5rem;
+    /* 24px */
   }
 
   h5 {
-    font-size: 1.25rem; /* 20px */
+    font-size: 1.25rem;
+    /* 20px */
   }
 
   h6 {
-    font-size: 1rem; /* 16px */
+    font-size: 1rem;
+    /* 16px */
   }
 }

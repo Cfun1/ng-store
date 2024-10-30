@@ -1,6 +1,6 @@
 .navbar {
   position: fixed;
-  z-index: 1030;
+  z-index: 2;
   margin: 0;
   padding: 0;
   top: 0;
@@ -32,9 +32,12 @@ a:hover {
   text-decoration: none;
   color: aliceblue;
 
-  display: flex; /* Use flex to center the text */
-  align-items: center; /* Center vertically */
-  justify-content: center; /* Center horizontally */
+  display: flex;
+  /* Use flex to center the text */
+  align-items: center;
+  /* Center vertically */
+  justify-content: center;
+  /* Center horizontally */
 }
 
 a:hover {
@@ -45,6 +48,7 @@ a:hover {
 .nav-active {
   background-color: aliceblue;
 }
+
 .nav-active a {
   color: black;
   font-weight: 800;
