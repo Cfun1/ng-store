@@ -5,15 +5,17 @@ import { Component, HostListener, OnInit } from '@angular/core';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css'],
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent implements OnInit
+{
   currentPosition: number = 0;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   @HostListener('window:scroll', ['$event'])
-  onContentScrolled(e: any) {
+  onContentScrolled(e: any)
+  {
     const totalScrollableHeight =
       document.documentElement.scrollHeight - window.innerHeight;
     const scrollPositionPercent =
@@ -22,9 +24,11 @@ export class FooterComponent implements OnInit {
     this.currentPosition = scrollPositionPercent;
     const scroll = window.scrollY;
 
-    if (scroll > this.currentPosition) {
+    if (scroll > this.currentPosition)
+    {
       //console.log('scrollDown');
-    } else {
+    } else
+    {
       //console.log('scrollUp ');
     }
   }

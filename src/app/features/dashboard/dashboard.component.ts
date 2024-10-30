@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/services/authentication.service';
 import { User } from 'src/app/core/user/user';
@@ -11,22 +11,29 @@ import { UserService } from 'src/app/core/user/user.service';
 })
 export class DashboardComponent implements OnInit
 {
+  constructor() { }
+
+  /* Dependency Injection*/
+  readonly services = {
+    user: inject(UserService),
+    auth: inject(AuthService),
+  };
+  /***/
+
   users$!: Observable<User[]>;
   currenUser!: User | undefined;
-  isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
-
-  constructor(private userService: UserService, private authService: AuthService) { }
+  isLoggedIn$: Observable<boolean> = this.services.auth.isLoggedIn$;
 
   ngOnInit()
   {
     this.getUsers$();
-    this.currenUser = this.authService.currentUser;
+    this.currenUser = this.services.auth.currentUser;
   }
 
-  logout() { this.authService.logout(); }
+  logout() { this.services.auth.logout(); }
 
   getUsers$()
   {
-    this.users$ = this.userService.getUsers$();
+    this.users$ = this.services.user.getUsers$();
   }
 }

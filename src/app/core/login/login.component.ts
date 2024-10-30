@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/authentication.service';
@@ -11,7 +11,10 @@ import { mockUser } from '../user/user';
 })
 export class LoginComponent implements OnInit
 {
-  constructor(private authService: AuthService) { }
+  /* Dependency injection */
+  authService = inject(AuthService);
+
+  constructor() { }
 
   isLoggedIn$!: Observable<boolean>;
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -14,35 +14,43 @@ import { ProductService } from '../features/product/product.service';
 })
 export class HomeComponent implements OnInit
 {
-  constructor(private productservice: ProductService, private authService: AuthService
-    , private cartService: CartService, private snackBar: MatSnackBar, private router: Router) { }
+  constructor() { }
+
+  /* Dependency Injection*/
+  readonly services = {
+    cart: inject(CartService),
+    product: inject(ProductService),
+    auth: inject(AuthService),
+    snackBar: inject(MatSnackBar),
+    router: inject(Router)
+  };
+  /***/
 
   products$!: Observable<Product[]>;
-  isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
+  isLoggedIn$: Observable<boolean> = this.services.auth.isLoggedIn$;
   cartCount$!: Observable<number>;
-
 
   ngOnInit()
   {
     this.loadProducts();
-    this.cartCount$ = this.cartService.getCartCount$();
+    this.cartCount$ = this.services.cart.getCartCount$();
   }
 
 
   loadProducts()
   {
-    this.products$ = this.productservice.getproducts$();
+    this.products$ = this.services.product.getproducts$();
   }
 
   goToCart()
   {
-    this.router.navigate(['/cart']);
+    this.services.router.navigate(['/cart']);
   }
 
   addToCart(product: Product)
   {
-    this.cartService.addProduct({ product: product, quantity: 1 } as CartItem);
-    this.snackBar.open(`Item added to cart`, '', {
+    this.services.cart.addProduct({ product: product, quantity: 1 } as CartItem);
+    this.services.snackBar.open(`Item added to cart`, '', {
       duration: 2000,
       horizontalPosition: 'center',
       verticalPosition: 'bottom'
