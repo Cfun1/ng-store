@@ -46,3 +46,14 @@ mat-card-content {
 mat-card-actions {
       text-align: center;
 }
+
+.cart-count-badge {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 2;
+
+      &:hover {
+            cursor: pointer;
+      }
+}

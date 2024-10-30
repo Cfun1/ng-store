@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { QUERY_PARAMS_KEYS } from '../app-routing-keys';
 import { User } from '../user/user';
 import { UserService } from '../user/user.service';
-import { QUERY_PARAMS } from './auth-guard.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +26,8 @@ export class AuthService
       {
         this.isAuthenticated$.next(true);
         this.currentUser = user;
-        //QUESTION: better way to avoid magic string/ hard coding?
-        let nextRoute = this.activeRoute.snapshot.queryParamMap.get(QUERY_PARAMS.REDIRECT_TO);
+
+        let nextRoute = this.activeRoute.snapshot.queryParamMap.get(QUERY_PARAMS_KEYS.REDIRECT_TO);
         if (nextRoute !== null)
           this.router.navigate([nextRoute]);
       }

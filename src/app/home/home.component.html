@@ -2,6 +2,9 @@
   <span>No products Found! Something went wrong</span>
 </ng-template>
 
+
+<mat-icon (click)="goToCart()" class="cart-count-badge" matBadge="{{cartCount$ | async}}" matBadgeColor="warn">home</mat-icon>
+
 <div *ngIf="(products$ | async) !== null; else noProducts" class="products-container">
   <div class="container">
     <div class="d-flex mt-5">
@@ -13,7 +16,7 @@
       <div class="col-md-4 d-flex align-items-stretch" *ngFor="let product of products$ | async">
         <mat-card class="mb-4 flex-fill">
           <div class="image-container">
-            <img mat-card-image [src]="product.image" alt="{{ product.title }}" class="img-thumbnail">
+            <img class="img-thumbnail" mat-card-image [src]="product.image" alt="{{ product.title }}">
           </div>
           <mat-card-title>{{ product.title }}</mat-card-title>
           <mat-card-content>

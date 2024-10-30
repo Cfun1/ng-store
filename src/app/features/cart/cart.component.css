@@ -1,0 +1,41 @@
+.container {
+      margin: auto;
+      max-width: 800px;
+}
+
+.product-title {
+      margin: 0;
+      font-weight: bold;
+}
+
+.img-thumbnail {
+      max-height: 150px;
+      object-fit: contain;
+      margin: 0;
+}
+
+.image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+}
+
+.mat-card {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+}
+
+.mat-card-content {
+      flex-grow: 1;
+      text-align: center;
+}
+
+
+.price-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: flex-end;
+}
