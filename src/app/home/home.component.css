@@ -52,9 +52,14 @@ mat-card-actions {
       bottom: 30px;
       right: 30px;
       z-index: 2;
-      font-size: 2em;
+      font-size: 2.5em;
 
       &:hover {
             cursor: pointer;
+            font-weight: bolder;
       }
+}
+
+.add-product-button {
+      background-color: var(--main-bg-color);
 }
