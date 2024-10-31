@@ -47,14 +47,24 @@ mat-card-actions {
       text-align: center;
 }
 
-.cart-count-badge {
+.cart-count-button {
       position: fixed;
       bottom: 30px;
-      right: 30px;
+      right: 20px;
       z-index: 2;
-      font-size: 2em;
 
       &:hover {
             cursor: pointer;
+            scale: 130%;
+
+            /*Targeting mat-icon when cart-count-button is hovered*/
+            mat-icon {
+                  font-weight: bolder;
+            }
       }
+}
+
+
+.add-product-button {
+      background-color: var(--main-bg-color);
 }
