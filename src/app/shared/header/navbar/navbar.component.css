@@ -13,43 +13,55 @@
   font-weight: 600;
 }
 
-.navbar li {
-  text-transform: uppercase;
-  height: var(--navbar-height);
-  flex: 1 0;
-}
-
 .spacer {
   flex: 2;
 }
 
-a,
-a:visited,
-a:hover {
-  height: 100%;
-  width: 100%;
-  display: inline-block;
-  text-decoration: none;
-  color: aliceblue;
-
-  display: flex;
-  /* Use flex to center the text */
-  align-items: center;
-  /* Center vertically */
-  justify-content: center;
-  /* Center horizontally */
-}
-
-a:hover {
-  font-weight: 800;
-  color: black;
-}
-
 .nav-active {
-  background-color: aliceblue;
+  background-color: rgba(0, 0, 0, .3);
+  border-radius: 30px;
+  border: solid rgba(0, 0, 0, .3) 2px;
+
+  &.navbar-item {
+    color: white;
+  }
 }
 
-.nav-active a {
-  color: black;
+.nav-active li {
+  color: white;
   font-weight: 800;
 }
+
+.navbar-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-transform: uppercase;
+  flex: 0 1 150px;
+  height: 80%;
+  padding: 3px;
+}
+
+.navbar-item {
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:not(:first-of-type):hover {
+    font-weight: 800;
+    background-color: rgba(0, 0, 0, .3);
+    border-radius: 30px;
+    border: solid rgba(0, 0, 0, .3) 2px;
+  }
+}
+
+.logo-icon {
+  font-size: 2em;
+}
+
+::ng-deep .tooltip-red {
+  background: #b71c1c;
+}
+
+.navbar li {}

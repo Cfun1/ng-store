@@ -1,9 +1,40 @@
 <ul class="navbar list-unstyled laptop-only">
-  <li>
-    <a routerLink="/">{{ title }}</a>
-  </li>
+  <div class="navbar-item" routerLinkActive="nav-active" routerLink="/" [routerLinkActiveOptions]="{exact: true}"
+       matTooltip="Angular inside" matTooltipClass="tooltip-red">
+    <fa-icon class="logo-icon" [icon]="['fab', 'angular']"></fa-icon>
+    <li>{{ title }}</li>
+  </div>
   <div class="spacer"></div>
-  <li routerLinkActive="nav-active"><a routerLink="/home">home</a></li>
-  <li routerLinkActive="nav-active"><a routerLink="/cart">cart</a></li>
-  <li routerLinkActive="nav-active"><a routerLink="/dashboard">dashboard</a></li>
+
+  <div class="navbar-item" routerLinkActive="nav-active" routerLink="/home">
+    <mat-icon>home</mat-icon>
+    <li>home</li>
+  </div>
+
+  <div class="navbar-item" routerLinkActive="nav-active" routerLink="/cart">
+    <mat-icon>shopping_cart</mat-icon>
+    <li>cart</li>
+  </div>
+
+  <div class="navbar-item" routerLinkActive="nav-active" routerLink="/dashboard">
+    <mat-icon>shopping_cart</mat-icon>
+    <li>dashboard</li>
+  </div>
 </ul>
+
+<!-- <mat-toolbar color="primary" class="navbar list-unstyled laptop-only">
+  <mat-toolbar-row>
+    <button mat-icon-button class="example-icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>{{ title }}</span>
+    <span class="example-spacer"></span>
+
+    <div class="navbar-item" routerLink="/">
+      <button mat-icon-button class="example-icon">
+        <mat-icon>home</mat-icon>
+      </button>
+      <mat-label>Home</mat-label>
+    </div>
+
+  </mat-toolbar-row> -->
