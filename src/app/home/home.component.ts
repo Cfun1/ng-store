@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AuthService } from '../core/services/authentication.service';
 import { CartItem, CartService } from '../features/cart/cart.service';
 import { Product } from '../features/product/product';
@@ -29,11 +29,14 @@ export class HomeComponent implements OnInit
   products$!: Observable<Product[]>;
   isLoggedIn$: Observable<boolean> = this.services.auth.isLoggedIn$;
   cartCount$!: Observable<number>;
+  isCartEmpty$: Observable<boolean> = of(true);
+
 
   ngOnInit()
   {
     this.loadProducts();
     this.cartCount$ = this.services.cart.getCartCount$();
+    this.isCartEmpty$ = this.services.cart.isCartEmpty$();
   }
 
 

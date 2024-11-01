@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, map, Observable, of } from 'rxjs';
 import { Product } from '../product/product';
 
 
@@ -33,6 +33,11 @@ export class CartService implements Resolve<CartItem[]>
   getCartCount$(): Observable<number>
   {
     return this.cartCount$.asObservable();
+  }
+
+  isCartEmpty$(): Observable<boolean>
+  {
+    return this.cartCount$.pipe(map(count => (count === 0)));
   }
 
   addProduct(item: CartItem)

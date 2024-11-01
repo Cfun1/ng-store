@@ -2,8 +2,10 @@
   <span>No products Found! Something went wrong</span>
 </ng-template>
 
+<img src="/assets/landing.webp" width="100%" style="object-fit: cover">
+
 <button class="cart-count-button" mat-fab color="primary" (click)="goToCart()">
-  <mat-icon matBadgeSize="small" matBadge="{{cartCount$ | async}}"
+  <mat-icon matBadgeSize="small" [matBadge]="(isCartEmpty$ | async) ? null : (cartCount$ | async)"
             matBadgeColor="warn">shopping_cart</mat-icon>
 </button>
 
