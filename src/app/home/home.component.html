@@ -5,36 +5,34 @@
 <img src="/assets/landing.webp" width="100%" style="object-fit: cover">
 
 <button class="cart-count-button" mat-fab color="primary" (click)="goToCart()">
+  <!-- How this could be opzimized by avoiding redundant async usage-->
   <mat-icon matBadgeSize="small" [matBadge]="(isCartEmpty$ | async) ? null : (cartCount$ | async)"
             matBadgeColor="warn">shopping_cart</mat-icon>
 </button>
 
-<div *ngIf="(products$ | async) !== null; else noProducts" class="products-container">
-  <div class="container">
-    <div class="d-flex mt-5">
-      <h1 class="text-center flex-grow-1">Products list</h1>
-      <button *ngIf="isLoggedIn$ | async" mat-raised-button class="add-product-button">Add Product</button>
-    </div>
-
-    <div class="row main-products-grid">
-      <div class="col-md-4 d-flex align-items-stretch" *ngFor="let product of products$ | async">
-        <mat-card class="mb-4 flex-fill">
-          <div class="image-container">
-            <img class="img-thumbnail" mat-card-image [src]="product.image" alt="{{ product.title }}">
-          </div>
-          <mat-card-title>{{ product.title }}</mat-card-title>
-          <mat-card-content>
-            <p class="price"><strong>{{ product.price | currency }}</strong></p>
-            <p> {{ product.description }}</p>
-            <p><strong>Category: </strong> <span class="text-muted">{{ product.category }}</span></p>
-            <p><strong>Rating:</strong> {{ product.rating.rate }} ({{ product.rating.count }} reviews)</p>
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-raised-button color="primary" (click)="addToCart(product)">Add to Cart</button>
-          </mat-card-actions>
-        </mat-card>
-      </div>
-    </div>
+<div class="container" *ngIf="(products$ | async) as products; else noProducts">
+  <div class="d-flex mt-5">
+    <h1 class="text-center flex-grow-1">Products list</h1>
+    <button *ngIf="isLoggedIn$ | async" mat-raised-button class="add-product-button">Add Product</button>
   </div>
 
+  <div class="row main-products-grid">
+    <div class="col-md-4 d-flex align-items-stretch" *ngFor="let product of products">
+      <mat-card class="mb-4 flex-fill">
+        <div class="image-container">
+          <img class="img-thumbnail" mat-card-image [src]="product.image" alt="{{ product.title }}">
+        </div>
+        <mat-card-title>{{ product.title }}</mat-card-title>
+        <mat-card-content>
+          <p class="price"><strong>{{ product.price | currency }}</strong></p>
+          <p> {{ product.description }}</p>
+          <p><strong>Category: </strong> <span class="text-muted">{{ product.category }}</span></p>
+          <p><strong>Rating:</strong> {{ product.rating.rate }} ({{ product.rating.count }} reviews)</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="addToCart(product)">Add to Cart</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
 </div>

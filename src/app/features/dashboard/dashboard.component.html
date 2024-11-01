@@ -1,6 +1,6 @@
 <h1>Welcome {{currenUser?.name?.firstname}} !</h1>
 
-<div *ngIf="(users$ | async) !== null; else apiFail" class="users-container">
+<div *ngIf="(users$ | async) as users; else apiFail" class="users-container">
   <div class="container mt-5">
     <div class="d-flex mb-4">
       <h2 class="text-center flex-grow-1 ">Users list</h2>
@@ -24,7 +24,7 @@
       </thead>
       <tbody>
         <!-- Example Product Row -->
-        <tr *ngFor="let user of users$ | async" class="text-center align-middle">
+        <tr *ngFor="let user of users" class="text-center align-middle">
           <td>{{user.id}}</td>
           <td>{{user.username}}</td>
           <td>{{user.email}}</td>

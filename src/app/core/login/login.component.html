@@ -42,11 +42,15 @@
           <span *ngIf="!cpassword.valid" class="invalid">password should be same</span>
         </div>
 
-        <button *ngIf="!(isLoggedIn$ | async)" type="submit" class="btn btn-primary w-100"
-                (click)="login(loginForm)">Login</button>
+        <ng-container *ngIf="!(isLoggedIn$ | async); else logoutTemp">
+          <button type="submit" class="btn btn-primary w-100"
+                  (click)="login(loginForm)">Login</button>
+        </ng-container>
 
-        <button *ngIf="isLoggedIn$ | async" type="submit" class="btn btn-primary w-100"
-                (click)="logout(loginForm)">Logout</button>
+        <ng-template #logoutTemp>
+          <button type="submit" class="btn btn-primary w-100"
+                  (click)="logout(loginForm)">Logout</button>
+        </ng-template>
       </form>
     </div>
   </div>
