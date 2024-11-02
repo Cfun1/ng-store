@@ -1,1 +1,7 @@
 @import url('../../../home/home.component.css');
+
+#close-detail-component {
+      position: absolute;
+      right: 0;
+      top: 0;
+}

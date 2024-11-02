@@ -6,10 +6,15 @@
 
   <div class="row main-products-grid">
     <mat-card class="mb-4 flex-fill">
+
+      <button id="close-detail-component" mat-mini-fab color="primary" routerLink="/home">
+        <mat-icon>close</mat-icon>
+      </button>
       <div class="image-container">
         <img class="img-thumbnail" mat-card-image [src]="product.image" alt="{{ product.title }}">
       </div>
-      <mat-card-title routerLink="/product/123">{{ product.title }}</mat-card-title>
+      <mat-card-title>
+        {{ product.title }} </mat-card-title>
       <mat-card-content>
         <p class="price"><strong>{{ product.price | currency }}</strong></p>
         <p> {{ product.description }}</p>
