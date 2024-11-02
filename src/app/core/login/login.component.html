@@ -8,30 +8,14 @@
 
         <div class="row">
           <mat-form-field>
-            <mat-label for="email">Email address</mat-label>
-            <input matInput ngModel name="email" #email="ngModel"
-                   type="email" email
-                   id="email" required
-                   placeholder="Enter email">
-
-            <!-- valdiation errors -->
-            <ng-container *ngIf="email.errors && email.touched">
-              <mat-error *ngIf="email.errors "> {{email.errors | json}}userName is required</mat-error>
-            </ng-container>
-          </mat-form-field>
-        </div>
-
-        <div class="row">
-          <mat-form-field>
             <mat-label for="userName">User Name</mat-label>
-            <input matInput ngModel name="userName" #userName="ngModel"
-                   type="userName"
+            <input matInput [ngModel]="initUserName" name="userName" #userNameField="ngModel"
+                   type="text"
                    id="userName" required minlength="5"
                    placeholder="Enter userName">
-
             <!-- valdiation errors -->
-            <ng-container *ngIf="userName.errors && userName.touched">
-              <mat-error *ngIf="userName.errors "> {{userName.errors | json}}userName is required</mat-error>
+            <ng-container *ngIf="userNameField.errors && userNameField.touched">
+              <mat-error *ngIf="userNameField.errors "> {{userNameField.errors | json}} userName is required</mat-error>
             </ng-container>
           </mat-form-field>
         </div>
@@ -40,9 +24,9 @@
           <div class="row gx-5">
             <mat-form-field class="col mb-5">
               <mat-label for="password">Password</mat-label>
-              <input matInput name="password" type="password" id="password" minlength="8"
+              <input matInput name="password" type="password" id="password" minlength="1"
                      placeholder="Password"
-                     #password="ngModel" ngModel required>
+                     #password="ngModel" [ngModel]="initPassword" required>
 
               <!-- valdiation errors -->
               <ng-container *ngIf="password.errors && password.touched">
@@ -51,25 +35,12 @@
                   {{password.errors['minlength'].requiredLength}})</mat-error>
               </ng-container>
             </mat-form-field>
-
-            <mat-form-field class="col  mb-5">
-              <mat-label for="cpassword">Confirm Password</mat-label>
-              <input matInput name="cpassword" type="password" id="cpassword" minlength="8"
-                     placeholder="Password"
-                     #cpassword="ngModel" ngModel required>
-
-              <!-- valdiation errors -->
-              <ng-container *ngIf="cpassword.errors && cpassword.touched">
-                <mat-error *ngIf="cpassword.errors['required']">password is required/password should be same
-                  {{cpassword.errors | json}}</mat-error>
-              </ng-container>
-            </mat-form-field>
           </div>
         </div>
 
         <ng-container *ngIf="!(isLoggedIn$ | async); else logoutTemp">
           <button mat-raised-button type="submit" class="w-100"
-                  (click)="login(loginForm)">Login</button>
+                  (click)="login(loginForm.value.userName, loginForm.value.password)">Login</button>
         </ng-container>
 
         <ng-template #logoutTemp>

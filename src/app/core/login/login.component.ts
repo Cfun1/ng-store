@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/authentication.service';
-import { mockUser } from '../user/user';
+import { User } from '../user/user';
 
 @Component({
   selector: 'app-login',
@@ -17,15 +17,21 @@ export class LoginComponent implements OnInit
   constructor() { }
 
   isLoggedIn$!: Observable<boolean>;
+  readonly initUserName: string = 'johnd';
+  readonly initPassword: string = 'm38rmF$';
 
   ngOnInit()
   {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
+
+
   }
 
-  login(form: NgForm)
+  login(username: string, password: string)
   {
-    this.authService.login(mockUser);
+    ////    fromEvent()         exhaustMap(users => of(users)),
+    let user: User = { username: username, password: password } as User;
+    this.authService.login(user); //mockUser);
   }
 
   logout(form: NgForm)
