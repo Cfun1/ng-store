@@ -1,4 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/services/authentication.service';
 import { User } from 'src/app/core/user/user';
@@ -17,6 +18,7 @@ export class DashboardComponent implements OnInit
   readonly services = {
     user: inject(UserService),
     auth: inject(AuthService),
+    router: inject(Router),
   };
   /***/
 
@@ -30,7 +32,11 @@ export class DashboardComponent implements OnInit
     this.currenUser = this.services.auth.currentUser;
   }
 
-  logout() { this.services.auth.logout(); }
+  logout()
+  {
+    this.services.auth.logout();
+    this.services.router.navigate(['/home']);
+  }
 
   getUsers$()
   {

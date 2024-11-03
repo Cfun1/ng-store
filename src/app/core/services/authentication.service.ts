@@ -46,6 +46,5 @@ export class AuthService
   {
     this.currentUser = undefined;
     this.isAuthenticated$.next(false);
-    this.router.navigate(['/home']);
   }
 }
