@@ -11,3 +11,11 @@
 progress::-webkit-progress-value {
       background-color: var(--main-bg-color);
 }
+
+
+.go-to-top-btn {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      z-index: 2;
+}

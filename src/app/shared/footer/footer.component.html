@@ -1,4 +1,8 @@
-<p>footer works!</p>
 <mat-progress-bar mode="determinate" class="scroll-progress"
-                  [value]="currentPosition"
+                  [value]="currentPosition$ |async"
                   max="100"></mat-progress-bar>
+
+
+<button mat-fab color="secondary" class="go-to-top-btn" *ngIf="showGoToTop" (click)="scrollToTop()">
+    <mat-icon>arrow_upward</mat-icon>
+</button>
