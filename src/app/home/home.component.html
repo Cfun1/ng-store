@@ -4,20 +4,19 @@
 
 <img src="/assets/landing.webp" width="100%" style="object-fit: cover">
 
-<button class="cart-count-button" mat-fab color="primary" (click)="goToCart()">
-  <!-- How this could be opzimized by avoiding redundant async usage-->
-  <mat-icon matBadgeSize="small" [matBadge]="(isCartEmpty$ | async) ? null : (cartCount$ | async)"
-            matBadgeColor="warn">shopping_cart</mat-icon>
-</button>
-
 <div id="product-details">
   <router-outlet></router-outlet>
 </div>
 
+<button *ngIf="isLoggedIn$ | async" (click)="addProductClicked()"
+        mat-fab class="add-product-button"
+        matTooltip="Add Product">
+  <mat-icon>add</mat-icon>
+</button>
+
 <div class="container" *ngIf="(products$ | async) as products; else noProducts">
   <div class="d-flex mt-5">
     <h1 class="text-center flex-grow-1">Products list</h1>
-    <button *ngIf="isLoggedIn$ | async" mat-raised-button class="add-product-button">Add Product</button>
   </div>
 
   <div class="row main-products-grid">
@@ -44,3 +43,9 @@
     </div>
   </div>
 </div>
+
+<button class="cart-count-button" mat-fab color="primary" (click)="goToCart()">
+  <!-- How this could be opzimized by avoiding redundant async usage-->
+  <mat-icon matBadgeSize="small" [matBadge]="(isCartEmpty$ | async) ? null : (cartCount$ | async)"
+            matBadgeColor="warn">shopping_cart</mat-icon>
+</button>

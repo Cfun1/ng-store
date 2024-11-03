@@ -15,7 +15,6 @@ import { ProductService } from '../features/product/product.service';
 
 export class HomeComponent implements OnInit
 {
-  constructor() { }
 
   /* Dependency Injection*/
   readonly services = {
@@ -32,6 +31,7 @@ export class HomeComponent implements OnInit
   cartCount$!: Observable<number>;
   isCartEmpty$: Observable<boolean> = of(true);
 
+  constructor() { }
 
   ngOnInit()
   {
@@ -59,5 +59,10 @@ export class HomeComponent implements OnInit
       horizontalPosition: 'center',
       verticalPosition: 'bottom'
     });
+  }
+
+  addProductClicked()
+  {
+    this.services.router.navigate(['/addProduct']);
   }
 }
