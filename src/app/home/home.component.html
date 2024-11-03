@@ -33,7 +33,7 @@
         </mat-card-title>
         <mat-card-content>
           <p class="price"><strong>{{ product.price | currency }}</strong></p>
-          <p> {{ product.description }}</p>
+          <p> {{ product.description | truncate:15 }}</p>
           <p><strong>Category: </strong> <span class="text-muted">{{ product.category }}</span></p>
           <p><strong>Rating:</strong> {{ product.rating.rate }} ({{ product.rating.count }} reviews)</p>
         </mat-card-content>
