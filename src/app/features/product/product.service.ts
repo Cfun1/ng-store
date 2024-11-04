@@ -24,8 +24,13 @@ export class ProductService implements Resolve<Product>
       filter((product): product is Product => product !== undefined));
   }
 
-  getproducts$(): Observable<Product[]>
+  getProducts$(): Observable<Product[]>
   {
     return this.http.get<Product[]>(this.apiProductsEndpoint);
+  }
+
+  addProducts$(product: Product): Observable<Product>
+  {
+    return this.http.post<Product>(this.apiProductsEndpoint, product);
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { map, Observable } from 'rxjs';
-import { QUERY_PARAMS_KEYS } from '../app-routing-keys';
+import { QUERY_PARAMS_KEYS } from '../../app-routing-keys';
 import { AuthService } from './authentication.service';
 
 @Injectable({

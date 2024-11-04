@@ -6,7 +6,7 @@ import { TitleStrategy } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './core/login/login.component';
-import { TitleStrategyManagerService } from './core/services/title-strategy-manager.service';
+import { TitleStrategyManagerService } from './core/services/title-manager/title-strategy-manager.service';
 import { FeaturesModule } from './features/features.module';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
@@ -23,7 +23,9 @@ import { SharedModule } from './shared/shared.module';
   ],
   imports: [BrowserModule, SharedModule, AppRoutingModule, BrowserAnimationsModule, FeaturesModule],
   providers: [TitleCasePipe,
-    { provide: TitleStrategy, useClass: TitleStrategyManagerService }
+    {
+      provide: TitleStrategy, useClass: TitleStrategyManagerService
+    },
   ],
   bootstrap: [AppComponent],
 })

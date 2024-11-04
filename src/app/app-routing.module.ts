@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PATH_PARAMS_KEYS, RESOLVER_KEYS } from './core/app-routing-keys';
 import { LoginComponent } from './core/login/login.component';
-import { AuthGuardService } from './core/services/auth-guard.service';
+import { AuthGuardService } from './core/services/Auth/auth-guard.service';
 import { CartComponent } from './features/cart/cart.component';
 import { CartService } from './features/cart/cart.service';
 import { DashboardComponent } from './features/dashboard/dashboard.component';

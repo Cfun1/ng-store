@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { AuthService } from '../core/services/authentication.service';
+import { AuthService } from '../core/services/Auth/authentication.service';
 import { CartItem, CartService } from '../features/cart/cart.service';
 import { Product } from '../features/product/product';
 import { ProductService } from '../features/product/product.service';
@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit
 
   loadProducts()
   {
-    this.products$ = this.services.product.getproducts$();
+    this.products$ = this.services.product.getProducts$();
   }
 
   goToCart()

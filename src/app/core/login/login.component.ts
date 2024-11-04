@@ -2,7 +2,7 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, Subscription, tap } from 'rxjs';
-import { AuthService } from '../services/authentication.service';
+import { AuthService } from '../services/Auth/authentication.service';
 import { User } from '../user/user';
 
 @Component({
