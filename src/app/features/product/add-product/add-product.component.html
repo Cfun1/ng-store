@@ -53,7 +53,7 @@
                  (matChipInputTokenEnd)="add($event)">
         </mat-chip-list>
 
-        <mat-error *ngIf="notEmptyCategoriesValidator()">
+        <mat-error *ngIf="productForm.hasError('emptyCategory')">
           Category is required
         </mat-error>
       </mat-form-field>

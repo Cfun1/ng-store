@@ -1,8 +1,7 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { tap } from 'rxjs';
 import { ValidationService } from 'src/app/core/services/validation/validation.service';
 import { Product } from '../product';
 import { ProductService } from '../product.service';
@@ -32,7 +31,7 @@ export class AddProductComponent implements OnInit
       titleControl: new FormControl(),
       priceControl: new FormControl(0),
       descriptionControl: new FormControl(),
-      categoryControl: new FormControl(this.categories, []),
+      categoryControl: new FormControl(this.categories, { validators: this.notEmptyCategoriesValidator }),
       imageControl: new FormControl(),
       rateControl: new FormControl([Validators.min(0), Validators.max(5)]),
       countControl: new FormControl({ validators: Validators.required }),
@@ -79,21 +78,24 @@ export class AddProductComponent implements OnInit
     {
       this.categories.splice(index, 1);
       this.productForm.get('categoryControl')?.setValue(this.categories);
-      console.log(this?.productForm?.get('categoryControl')?.value && this.productForm?.get('categoryControl')?.value.length > 0)
 
       this.productForm.get('categoryControl')?.updateValueAndValidity();
     }
   }
 
-  notEmptyCategoriesValidator(): ValidationErrors | null | boolean
+
+
+  notEmptyCategoriesValidator: ValidatorFn = (
+    control: AbstractControl,
+  ): ValidationErrors | null =>
   {
     if (this?.productForm?.get('categoryControl')?.value?.length >= 0)
     {
-      return true; //null;
+      return null;
     }
     else
     {
-      return false;// { required: true };
+      return { emptyCategory: true };
     }
   }
   //#endregion
@@ -108,7 +110,6 @@ export class AddProductComponent implements OnInit
       console.log('Product added:', newProduct);
       // call api
       this.services.product.addProducts$(this.productForm?.value as Product)
-        .pipe(tap(val => console.log('prDD/ ', val)))
         .subscribe();
 
     }
