@@ -1,6 +1,6 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { tap } from 'rxjs';
 import { ValidationService } from 'src/app/core/services/validation/validation.service';
@@ -32,7 +32,7 @@ export class AddProductComponent implements OnInit
       titleControl: new FormControl(),
       priceControl: new FormControl(0),
       descriptionControl: new FormControl(),
-      categoryControl: new FormControl(this.categories, []),
+      categoryControl: new FormControl(this.categories, { validators: this.notEmptyCategoriesValidator }),
       imageControl: new FormControl(),
       rateControl: new FormControl([Validators.min(0), Validators.max(5)]),
       countControl: new FormControl({ validators: Validators.required }),
@@ -85,15 +85,20 @@ export class AddProductComponent implements OnInit
     }
   }
 
-  notEmptyCategoriesValidator(): ValidationErrors | null | boolean
+
+
+  notEmptyCategoriesValidator: ValidatorFn = (
+    control: AbstractControl,
+  ): ValidationErrors | null =>
   {
+    console.log('iniit ', this?.productForm?.get('categoryControl')?.value?.length)
     if (this?.productForm?.get('categoryControl')?.value?.length >= 0)
     {
-      return true; //null;
+      return null; //null;
     }
     else
     {
-      return false;// { required: true };
+      return { emptyCategory: true };// { required: true };
     }
   }
   //#endregion
