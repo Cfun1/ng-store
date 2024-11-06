@@ -1,3 +1,34 @@
+.cover-img-container {
+      position: relative;
+      width: 100%;
+}
+
+.cover-img {
+      background-image: linear-gradient(to bottom, rgba(25, 118, 210, 0.4), rgba(25, 118, 210, 0)), url("/assets/landing.webp");
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      padding-bottom: 56.25%;
+}
+
+.cover-img-container h1 {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 3rem;
+      font-weight: bold;
+      text-align: center;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.cover-img-container h1:hover {
+      color: gold;
+      cursor: pointer;
+      transition: color 0.3s ease;
+}
+
 .container {
       margin-top: 20px;
 }

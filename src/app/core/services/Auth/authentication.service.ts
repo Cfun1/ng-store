@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, delay, Observable, of, switchMap, tap } from 'rxjs';
+import { User } from '../../../features/user/user';
+import { UserService } from '../../../features/user/user.service';
 import { QUERY_PARAMS_KEYS } from '../../app-routing-keys';
-import { User } from '../../user/user';
-import { UserService } from '../../user/user.service';
 
 @Injectable({
   providedIn: 'root'

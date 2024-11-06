@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
 import { BehaviorSubject, fromEvent, Subscription, tap } from 'rxjs';
 
 @Component({
@@ -8,9 +9,11 @@ import { BehaviorSubject, fromEvent, Subscription, tap } from 'rxjs';
 })
 export class FooterComponent implements OnInit
 {
+  scroller = inject(ViewportScroller);
+
   scrollToTop()
   {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.scroller.scrollToPosition([0, 0]);
   }
   //  private ngZone = inject(NgZone);
 

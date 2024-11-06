@@ -53,6 +53,7 @@
     background-color: rgba(0, 0, 0, .3);
     border-radius: 30px;
     border: solid rgba(0, 0, 0, .3) 1px;
+    transition: color 0.3s ease;
   }
 }
 
@@ -63,5 +64,3 @@
 ::ng-deep .tooltip-red {
   background: #b71c1c;
 }
-
-.navbar li {}
