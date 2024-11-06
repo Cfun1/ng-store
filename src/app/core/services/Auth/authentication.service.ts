@@ -23,15 +23,15 @@ export class AuthService
     return this.userService.getUsers$()
       .pipe(
         tap(val => console.log(' execute the api call ')),
-        delay(1000),//mock delay of api call
+        delay(500),//mock delay of api call
         switchMap(users =>
         {
           let foundUser = users.find(u => u.username === user.username && u.password === user.password)
           if (foundUser)
           {
-            this.isAuthenticated$.next(true);
             this.currentUser = foundUser;
             let nextRoute = this.activeRoute.snapshot.queryParamMap.get(QUERY_PARAMS_KEYS.REDIRECT_TO);
+            this.isAuthenticated$.next(true);
 
             if (nextRoute !== null)
               return of(nextRoute);
