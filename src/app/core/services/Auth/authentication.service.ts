@@ -10,7 +10,7 @@ import { QUERY_PARAMS_KEYS } from '../../app-routing-keys';
 })
 export class AuthService
 {
-  private isAuthenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  private isAuthenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoggedIn$: Observable<boolean> = this.isAuthenticated$.asObservable();
   currentUser!: User | undefined;
 
