@@ -1,7 +1,25 @@
+th {
+      font-weight: bold;
+      color: black
+}
+
 tr th {
       text-transform: lowercase;
 }
 
 tr th::first-letter {
       text-transform: capitalize;
+}
+
+.table-wrapper {
+      width: 90%;
+      margin: auto;
+
+      & table {
+            width: 100%;
+      }
+}
+
+mat-row:hover {
+      cursor: pointer;
 }

@@ -1,14 +1,40 @@
 <h1>Welcome {{currenUser?.name?.firstname}} !</h1>
+<div>
+  <ng-container #userDetails>
 
-<div *ngIf="(users$ | async) as users; else apiFail" class="users-container">
+  </ng-container>
+</div>
+
+<div class="d-flex mb-4">
+  <h2 class="text-center flex-grow-1 ">Users list</h2>
+  <button mat-raised-button color="Accent"
+          *ngIf="isLoggedIn$ | async" type="submit"
+          (click)="logout()">Logout</button>
+</div>
+
+<div *ngIf="(users$ | async) as users; else apiFail">
+  <div class="mat-elevation-z8 table-wrapper">
+    <table mat-table [dataSource]="dataSource">
+
+      <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+        <mat-header-cell mat-header-cell *matHeaderCellDef> {{column}} </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row matRipple *matRowDef="let row; columns: displayedColumns;"
+               (click)="showUserDetails(row)">
+      </mat-row>
+
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[3, 5, 10]" [length]="users.length" pageSize="5"
+                   showFirstLastButtons>
+    </mat-paginator>
+  </div>
+
+  <!-- 
   <div class="container mt-5">
-    <div class="d-flex mb-4">
-      <h2 class="text-center flex-grow-1 ">Users list</h2>
-      <button mat-raised-button color="Accent"
-              *ngIf="isLoggedIn$ | async" type="submit"
-              (click)="logout()">Logout</button>
-    </div>
-
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
         <tr class="text-center align-middle">
@@ -23,7 +49,6 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Example Product Row -->
         <tr *ngFor="let user of users" class="text-center align-middle">
           <td>{{user.id}}</td>
           <td>{{user.username}}</td>
@@ -36,7 +61,7 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </div> -->
 </div>
 
 <ng-template #apiFail class="invalid">Something went wrong...</ng-template>
