@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PATH_PARAMS_KEYS, RESOLVER_KEYS } from './core/app-routing-keys';
 import { LoginComponent } from './core/login/login.component';
 import { AuthGuardService } from './core/services/Auth/auth-guard.service';
+import { GuardDeactivateService } from './core/services/guard-deactivate.service';
 import { CartComponent } from './features/cart/cart.component';
 import { CartService } from './features/cart/cart.service';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
@@ -34,7 +35,8 @@ const routes: Routes = [
     title: "Add product",
     //loadComponent: () => import('./features/product/add-product/add-product.component').then((m) => m.AddProductComponent),
     component: AddProductComponent,
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService],
+    canDeactivate: [GuardDeactivateService]
   },
 
   {

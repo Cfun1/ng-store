@@ -1,7 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { CanComponentDeactivate } from 'src/app/core/services/guard-deactivate.service';
 import { ValidationService } from 'src/app/core/services/validation/validation.service';
+import { ConfirmDialogData, confirmDialogTemplateComponent } from 'src/app/shared/confirm-dialog-template.component';
 import { Product } from '../product';
 import { ProductService } from '../product.service';
 
@@ -10,13 +14,14 @@ import { ProductService } from '../product.service';
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.css'],
 })
-export class AddProductComponent implements OnInit
+export class AddProductComponent implements OnInit, CanComponentDeactivate
 {
   //#region DI
   private services = {
     //fb: inject(FormBuilder),
     validation: inject(ValidationService),
-    product: inject(ProductService)
+    product: inject(ProductService),
+    dialog: inject(MatDialog),
   }
   //#endregion
 
@@ -37,6 +42,20 @@ export class AddProductComponent implements OnInit
       rateControl: new FormControl([Validators.min(0), Validators.max(5)]),
       countControl: new FormControl({ validators: Validators.required }),
     });
+  }
+
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean
+  {
+    if (this?.productForm?.pristine)
+      return true;
+
+    let dialogRef = this.services.dialog.open(confirmDialogTemplateComponent, {
+      width: '250px',
+      hasBackdrop: true,
+      data: { caller: "Add product" } as ConfirmDialogData
+    })
+
+    return dialogRef.beforeClosed();
   }
 
   //#region Validators logic
@@ -88,7 +107,6 @@ export class AddProductComponent implements OnInit
     control: AbstractControl,
   ): ValidationErrors | null =>
   {
-    console.log('iniit ', this?.productForm?.get('categoryControl')?.value?.length)
     if (this?.productForm?.get('categoryControl')?.value?.length >= 0)
     {
       return null;
@@ -110,6 +128,7 @@ export class AddProductComponent implements OnInit
       // call api
       this.services.product.addProducts$(this.productForm?.value as Product)
         .subscribe();
+      //unsubscribe
 
     }
   }
