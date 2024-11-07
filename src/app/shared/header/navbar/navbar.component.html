@@ -20,6 +20,9 @@
     <mat-icon>shopping_cart</mat-icon>
     <li>dashboard</li>
   </div>
+
+  <div *ngIf="authUser$ | async as authUser" mat-card-avatar class=" user-avatar" [matTooltip]="authUser">
+    {{ authUser[0] }}</div>
 </ul>
 
 <!-- <mat-toolbar color="primary" class="navbar list-unstyled laptop-only">

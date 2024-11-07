@@ -64,3 +64,25 @@
 ::ng-deep .tooltip-red {
   background: #b71c1c;
 }
+
+.user-avatar {
+  align-items: center;
+  text-transform: uppercase;
+  flex: 0 1;
+
+  height: 40px;
+  min-width: 40px;
+  width: 40px;
+  padding: 3px;
+  background-color: #2196f3;
+
+  align-items: center;
+  display: flex;
+  font-weight: 480;
+  justify-content: center;
+  margin: 0 15px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

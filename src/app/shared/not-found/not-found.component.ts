@@ -25,6 +25,6 @@ export class NotFoundComponent implements OnInit
 
   ngOnInit()
   {
-    this.requestedUrl = this.services.router.url;
+    this.requestedUrl = decodeURIComponent(this.services.router.url);
   }
 }
