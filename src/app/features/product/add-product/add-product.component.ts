@@ -88,6 +88,7 @@ export class AddProductComponent implements OnInit
     control: AbstractControl,
   ): ValidationErrors | null =>
   {
+    console.log('iniit ', this?.productForm?.get('categoryControl')?.value?.length)
     if (this?.productForm?.get('categoryControl')?.value?.length >= 0)
     {
       return null;
