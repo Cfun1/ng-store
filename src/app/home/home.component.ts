@@ -40,7 +40,6 @@ export class HomeComponent implements OnInit
     this.isCartEmpty$ = this.services.cart.isCartEmpty$();
   }
 
-
   loadProducts()
   {
     this.products$ = this.services.product.getProducts$();

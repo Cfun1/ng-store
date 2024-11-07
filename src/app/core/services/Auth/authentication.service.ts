@@ -3,16 +3,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, delay, Observable, of, switchMap, tap } from 'rxjs';
 import { User } from '../../../features/user/user';
 import { UserService } from '../../../features/user/user.service';
-import { QUERY_PARAMS_KEYS } from '../../app-routing-keys';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService
 {
+
   private isAuthenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoggedIn$: Observable<boolean> = this.isAuthenticated$.asObservable();
   currentUser!: User | undefined;
+  private nextRoute$: BehaviorSubject<string> = new BehaviorSubject('');
 
   constructor(private activeRoute: ActivatedRoute,
     private router: Router,
@@ -30,11 +31,11 @@ export class AuthService
           if (foundUser)
           {
             this.currentUser = foundUser;
-            let nextRoute = this.activeRoute.snapshot.queryParamMap.get(QUERY_PARAMS_KEYS.REDIRECT_TO);
+
             this.isAuthenticated$.next(true);
 
-            if (nextRoute !== null)
-              return of(nextRoute);
+            if (this.nextRoute$.value !== null)
+              return this.nextRoute$.asObservable();
             return of();
           }
           return of();
@@ -46,5 +47,10 @@ export class AuthService
   {
     this.currentUser = undefined;
     this.isAuthenticated$.next(false);
+  }
+
+  setRedirectUrl(url: string)
+  {
+    this.nextRoute$.next(url);
   }
 }

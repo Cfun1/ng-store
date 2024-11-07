@@ -2,8 +2,9 @@ import { ViewportScroller } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { filter, map, Observable, Subscription, switchMap, tap } from 'rxjs';
+import { QUERY_PARAMS_KEYS } from 'src/app/core/app-routing-keys';
 import { AuthService } from 'src/app/core/services/Auth/authentication.service';
 import { User } from 'src/app/features/user/user';
 import { UserService } from 'src/app/features/user/user.service';
@@ -16,7 +17,6 @@ import { UserDetailsComponent } from '../user/user-details/user-details.componen
 })
 export class DashboardComponent implements OnInit, OnDestroy
 {
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('userDetails', { read: ViewContainerRef }) userDetails!: ViewContainerRef;
 
@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit, OnDestroy
     user: inject(UserService),
     auth: inject(AuthService),
     router: inject(Router),
+    activatedRoute: inject(ActivatedRoute),
     viewContainerRef: inject(ViewContainerRef),
     scroller: inject(ViewportScroller),
   };
@@ -49,6 +50,7 @@ export class DashboardComponent implements OnInit, OnDestroy
   ngAfterViewInit()
   {
     this.initMatTable();
+    this.checkUserDetailsReqFromQueryParams()
   }
 
   ngOnDestroy(): void
@@ -58,6 +60,17 @@ export class DashboardComponent implements OnInit, OnDestroy
   }
   // #endregion
 
+  checkUserDetailsReqFromQueryParams()
+  {
+    this.services.activatedRoute.queryParamMap.pipe(
+      filter(params => params !== null && params !== undefined),
+      map(params => params.get(QUERY_PARAMS_KEYS.userDetails)),
+      filter(userId => !!userId && !isNaN(Number(userId))),
+      map(userId => Number(userId)),
+      switchMap((userId) => this.services.user.getUser$(userId)),
+      tap(user => this.loadUserDetails(user))
+    ).subscribe();
+  }
 
   initMatTable()
   {
@@ -81,11 +94,28 @@ export class DashboardComponent implements OnInit, OnDestroy
 
   showUserDetails(user: User)
   {
+    //navigate to specific query params url and trigger the rxJS logic
+    this.services.router.navigate([], {
+      relativeTo: this.services.activatedRoute,
+      queryParams: { [QUERY_PARAMS_KEYS.userDetails]: user.id },
+    });
+  }
+
+  loadUserDetails(user: User)
+  {
     this.userDetails.clear();
     let cmpRef = this.userDetails.createComponent(UserDetailsComponent);
     let cmpInstance = cmpRef.instance;
-    this.userDetailsSub = cmpInstance.closeComponent.subscribe(() => cmpRef.destroy())
     cmpInstance.user = user;
+
+    this.userDetailsSub = cmpInstance.closeComponent.subscribe(() =>
+    {
+      cmpRef.destroy();
+      //navigate back to dashboard, just url to be consistent
+      this.services.router.navigate([], {
+        relativeTo: this.services.activatedRoute,
+      });
+    })
 
     this.services.scroller.scrollToAnchor('close-detail-component')
   }

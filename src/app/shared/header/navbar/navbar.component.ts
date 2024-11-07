@@ -18,8 +18,8 @@ export class NavbarComponent implements OnInit
 
   ngOnInit()
   {
-    this.authUserSub = this.auth.isLoggedIn$.pipe(
-    ).subscribe((val) => this.authUser$?.next(val && this.auth.currentUser ? this.auth.currentUser.name.firstname : ''))
+    this.authUserSub = this.auth.isLoggedIn$.pipe()
+      .subscribe((val) => this.authUser$?.next(val && this.auth.currentUser ? this.auth.currentUser.name.firstname : ''))
   }
 
   ngOnDestroy()

@@ -40,7 +40,10 @@ export class LoginComponent implements OnInit, OnDestroy
         nextRoute =>
         {
           if (nextRoute)
-            this.router.navigate([nextRoute]);
+          {
+            //fixed: use of navigateByUrl instead of navigate, since nextRoute could bundles path + query params
+            this.router.navigateByUrl(nextRoute);
+          }
         }
       )
     ).subscribe();
@@ -49,6 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy
   logout(form: NgForm)
   {
     this.authService.logout();
+    this.nextRouteSub?.unsubscribe();
   }
 
   ngOnDestroy(): void

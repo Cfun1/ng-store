@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { map, Observable } from 'rxjs';
-import { QUERY_PARAMS_KEYS } from '../../app-routing-keys';
 import { AuthService } from './authentication.service';
 
 @Injectable({
@@ -18,9 +17,9 @@ export class AuthGuardService implements CanActivate
       {
         if (isLoggedIn)
           return true; // Allow access
-
-        this.router.navigate(['/login'], { queryParams: { [QUERY_PARAMS_KEYS.REDIRECT_TO]: state.url } }); // Redirect to login
-        return false; // Deny access to satisfy the compiler
+        this.authService.setRedirectUrl(state.url);
+        this.router.navigate(['/login']); // Redirect to login
+        return false;                     // Deny access to satisfy the compiler
       })
     );
   }

@@ -3,10 +3,10 @@ export const RESOLVER_KEYS = {
       PRODUCT_DATA: "productData",
 }
 
-export const QUERY_PARAMS_KEYS = {
-      REDIRECT_TO: "redirectTo"
-};
-
 export const PATH_PARAMS_KEYS = {
       productId: "productId"
+};
+
+export const QUERY_PARAMS_KEYS = {
+      userDetails: "userId"
 };

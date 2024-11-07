@@ -1,4 +1,3 @@
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -19,9 +18,11 @@ export class AddProductComponent implements OnInit
     validation: inject(ValidationService),
     product: inject(ProductService)
   }
+  //#endregion
+
+  //#region Properties
   productForm!: FormGroup;
   addOnBlur = true;
-  readonly separatorKeysCodes = [ENTER, COMMA] as const;
   categories: string[] = ['general'];
   //#endregion
 
@@ -54,8 +55,8 @@ export class AddProductComponent implements OnInit
   {
   }
 
-  //#region categories chips control */
-  add(event: MatChipInputEvent): void
+  //#region categories chips control 
+  addcategory(event: MatChipInputEvent): void
   {
     const value = (event.value || '').trim();
 
@@ -71,7 +72,7 @@ export class AddProductComponent implements OnInit
     event.chipInput!.clear();
   }
 
-  remove(category: string): void
+  removecategory(category: string): void
   {
     const index = this.categories.indexOf(category);
     if (index >= 0)
@@ -82,8 +83,6 @@ export class AddProductComponent implements OnInit
       this.productForm.get('categoryControl')?.updateValueAndValidity();
     }
   }
-
-
 
   notEmptyCategoriesValidator: ValidatorFn = (
     control: AbstractControl,
@@ -100,8 +99,7 @@ export class AddProductComponent implements OnInit
   }
   //#endregion
 
-
-
+  //#region Form related logic
   onSubmit(): void
   {
     if (this.productForm.valid)
@@ -119,4 +117,5 @@ export class AddProductComponent implements OnInit
   {
     this.productForm.reset();
   }
+  //#endregion
 }
