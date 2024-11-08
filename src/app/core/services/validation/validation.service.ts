@@ -8,13 +8,18 @@ export class ValidationService
 {
   constructor() { }
 
-  validateRequired(form: FormGroup, controlName: string)
+  validateRequired(form: FormGroup, controlName: string): boolean
   {
-    return form?.get(controlName)?.hasError('required');
+    return form?.get(controlName)?.hasError('required') ?? false;
   }
 
-  validateRange(form: FormGroup, controlName: string)
+  validateRange(form: FormGroup, controlName: string): boolean
   {
-    return form.get(controlName)?.hasError('min') || form?.get(controlName)?.hasError('max');
+    return (form.get(controlName)?.hasError('min') || form?.get(controlName)?.hasError('max')) ?? false;
+  }
+
+  getValidationError(form: FormGroup, controlName: string, errorName: string): string
+  {
+    return form.get(controlName)?.getError(errorName);
   }
 }

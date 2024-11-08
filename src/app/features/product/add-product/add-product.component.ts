@@ -14,7 +14,7 @@ import { ProductService } from '../product.service';
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.css'],
 })
-export class AddProductComponent implements OnInit, CanComponentDeactivate
+export class AddProductComponent extends ValidationService implements OnInit, CanComponentDeactivate
 {
   //#region DI
   private services = {
@@ -33,6 +33,8 @@ export class AddProductComponent implements OnInit, CanComponentDeactivate
 
   constructor()
   {
+    super();
+
     this.productForm = new FormGroup({
       titleControl: new FormControl(),
       priceControl: new FormControl(0),
@@ -57,18 +59,6 @@ export class AddProductComponent implements OnInit, CanComponentDeactivate
 
     return dialogRef.beforeClosed();
   }
-
-  //#region Validators logic
-  validateRequired(controlName: string)
-  {
-    return this.services.validation.validateRequired(this.productForm, controlName);
-  }
-
-  validateRange(controlName: string)
-  {
-    return this.services.validation.validateRange(this.productForm, controlName);
-  }
-  //#endregion
 
   ngOnInit()
   {
