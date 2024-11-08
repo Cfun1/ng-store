@@ -1,5 +1,4 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, Subscription, tap } from 'rxjs';
 import { User } from '../../features/user/user';
@@ -49,7 +48,7 @@ export class LoginComponent implements OnInit, OnDestroy
     ).subscribe();
   }
 
-  logout(form: NgForm)
+  logout()
   {
     this.authService.logout();
     this.nextRouteSub?.unsubscribe();
