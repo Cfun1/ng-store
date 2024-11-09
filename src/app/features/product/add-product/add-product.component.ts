@@ -1,8 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CanComponentDeactivate } from 'src/app/core/services/guard-deactivate.service';
 import { ValidationService } from 'src/app/core/services/validation/validation.service';
 import { ConfirmDialogData, confirmDialogTemplateComponent } from 'src/app/shared/confirm-dialog-template.component';
@@ -14,7 +14,8 @@ import { ProductService } from '../product.service';
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.css'],
 })
-export class AddProductComponent extends ValidationService implements OnInit, CanComponentDeactivate
+export class AddProductComponent extends ValidationService
+  implements OnInit, OnDestroy, CanComponentDeactivate
 {
   //#region DI
   private services = {
@@ -29,6 +30,7 @@ export class AddProductComponent extends ValidationService implements OnInit, Ca
   productForm!: FormGroup;
   addOnBlur = true;
   categories: string[] = ['general'];
+  addProduSub!: Subscription;
   //#endregion
 
   constructor()
@@ -36,13 +38,13 @@ export class AddProductComponent extends ValidationService implements OnInit, Ca
     super();
 
     this.productForm = new FormGroup({
-      titleControl: new FormControl(),
-      priceControl: new FormControl(0),
+      titleControl: new FormControl('', { validators: Validators.required }),
+      priceControl: new FormControl(0, { validators: [Validators.required, Validators.min(1)] }),
       descriptionControl: new FormControl(),
-      categoryControl: new FormControl(this.categories, { validators: this.notEmptyCategoriesValidator }),
+      categoryControl: new FormControl(this.categories, { validators: [Validators.required, this.notEmptyCategoriesValidator] }),
       imageControl: new FormControl(),
-      rateControl: new FormControl([Validators.min(0), Validators.max(5)]),
-      countControl: new FormControl({ validators: Validators.required }),
+      rateControl: new FormControl(null, [Validators.min(0), Validators.max(5)]),
+      countControl: new FormControl(null, { validators: [Validators.required, Validators.min(0)] }),
     });
   }
 
@@ -62,6 +64,11 @@ export class AddProductComponent extends ValidationService implements OnInit, Ca
 
   ngOnInit()
   {
+  }
+
+  ngOnDestroy()
+  {
+    this.addProduSub?.unsubscribe();
   }
 
   //#region categories chips control 
@@ -88,16 +95,14 @@ export class AddProductComponent extends ValidationService implements OnInit, Ca
     {
       this.categories.splice(index, 1);
       this.productForm.get('categoryControl')?.setValue(this.categories);
-
       this.productForm.get('categoryControl')?.updateValueAndValidity();
     }
   }
 
-  notEmptyCategoriesValidator: ValidatorFn = (
-    control: AbstractControl,
-  ): ValidationErrors | null =>
+  notEmptyCategoriesValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null =>
   {
-    if (this?.productForm?.get('categoryControl')?.value?.length >= 0)
+    //known issue when removeing initial chip validation doesn't display the error message in template
+    if (this.categories?.length > 0 || this?.productForm?.get('categoryControl')?.value?.length > 0)
     {
       return null;
     }
@@ -116,10 +121,8 @@ export class AddProductComponent extends ValidationService implements OnInit, Ca
       const newProduct = this.productForm.value;
       console.log('Product added:', newProduct);
       // call api
-      this.services.product.addProducts$(this.productForm?.value as Product)
+      this.addProduSub = this.services.product.addProducts$(this.productForm?.value as Product)
         .subscribe();
-      //unsubscribe
-
     }
   }
 

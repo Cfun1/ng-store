@@ -13,9 +13,14 @@ export class ValidationService
     return form?.get(controlName)?.hasError('required') ?? false;
   }
 
-  validateRange(form: FormGroup, controlName: string): boolean
+  validateValueRange(form: FormGroup, controlName: string): boolean
   {
     return (form.get(controlName)?.hasError('min') || form?.get(controlName)?.hasError('max')) ?? false;
+  }
+
+  validateLengthRange(form: FormGroup, controlName: string): boolean
+  {
+    return (form.get(controlName)?.hasError('minLength') || form?.get(controlName)?.hasError('maxLength')) ?? false;
   }
 
   getValidationError(form: FormGroup, controlName: string, errorName: string): string

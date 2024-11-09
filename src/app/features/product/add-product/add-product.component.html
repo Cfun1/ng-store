@@ -4,7 +4,7 @@
     <mat-card-content>
       <mat-form-field appearance="fill">
         <mat-label>Title</mat-label>
-        <input matInput formControlName="titleControl" required />
+        <input matInput formControlName="titleControl" />
         <mat-error *ngIf="validateRequired(productForm, 'titleControl')">
           Title is required
         </mat-error>
@@ -12,14 +12,14 @@
 
       <mat-form-field appearance="fill">
         <mat-label>Price</mat-label>
-        <input matInput type="number" formControlName="priceControl" required min="1" />
+        <input matInput type="number" formControlName="priceControl" />
         <span matSuffix>$&nbsp;</span>
 
         <mat-error *ngIf="validateRequired(productForm, 'priceControl')">
           Price is required
         </mat-error>
 
-        <mat-error *ngIf="validateRange(productForm, 'priceControl')">
+        <mat-error *ngIf="validateValueRange(productForm, 'priceControl')">
           Price must be a positive number
         </mat-error>
       </mat-form-field>
@@ -29,17 +29,9 @@
         <textarea matInput rows="3" formControlName="descriptionControl"></textarea>
       </mat-form-field>
 
-      <!-- <mat-form-field appearance="fill">
-        <mat-label>Category</mat-label>
-        <input matInput formControlName="category" required />
-        <mat-error *ngIf="productForm.get('category')?.hasError('required')">
-          Category is required
-        </mat-error>
-      </mat-form-field> -->
-
       <mat-form-field appearance="fill">
         <mat-label>Categories</mat-label>
-        <mat-chip-list #chipList aria-label="categories selection" formControlName="categoryControl" required>
+        <mat-chip-list #chipList aria-label="categories selection" formControlName="categoryControl">
           <mat-chip *ngFor="let category of categories" (removed)="removecategory(category)">
             {{category}}
             <button matChipRemove>
@@ -52,7 +44,7 @@
                  (matChipInputTokenEnd)="addcategory($event)">
         </mat-chip-list>
 
-        <mat-error *ngIf="productForm.hasError('emptyCategory')">
+        <mat-error *ngIf="!productForm.get('categoryControl')?.valid">
           Category is required
         </mat-error>
       </mat-form-field>
@@ -65,16 +57,17 @@
 
       <mat-form-field appearance="fill">
         <mat-label>Rating (Rate)</mat-label>
-        <input matInput type="number" formControlName="rateControl" min="0" max="5" />
-        <mat-error *ngIf="validateRange(productForm, 'rateControl')">
+        <input matInput type="number" formControlName="rateControl" />
+        <mat-error *ngIf="validateValueRange(productForm, 'rateControl')">
           Rating must be between 0 and 5
         </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Rating (Count)</mat-label>
-        <input matInput type="number" formControlName="countControl" min="0" />
-        <mat-error *ngIf="validateRequired(productForm, 'countControl')">
+        <input matInput type="number" formControlName="countControl"/>
+        <mat-error
+                   *ngIf="validateRequired(productForm, 'countControl') || validateValueRange(productForm, 'countControl')">
           Count must be 0 or higher
         </mat-error>
       </mat-form-field>
