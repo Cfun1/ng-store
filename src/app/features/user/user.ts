@@ -11,10 +11,10 @@ export interface User
             zipcode: string;
       };
       id: number;
-      username: string;
+      userName: string;
       name: {
-            firstname: string,
-            lastname: string;
+            firstName: string,
+            lastName: string;
       };
       email: string;
       password: string;
@@ -43,11 +43,11 @@ export let mockUser: User = {
       },
       "id": 1,
       "email": "john@gmail.com",
-      "username": "johnd",
+      "userName": "johnd",
       "password": "m38rmF$",
       "name": {
-            "firstname": "john",
-            "lastname": "doe"
+            "firstName": "john",
+            "lastName": "doe"
       },
       "phone": "1-570-236-7033"
 };
