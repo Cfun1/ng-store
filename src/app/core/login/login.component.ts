@@ -62,7 +62,6 @@ export class LoginComponent extends ValidationService
   {
     errors.forEach(error =>
     {
-      console.log(LOGIN_ERRORS.UserNotFound['key'])
       // Check each error and set corresponding form control errors
       if (error['key'] === LOGIN_ERRORS.UserNotFound['key'])
       {
