@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import { ValidationErrors } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, delay, Observable, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, delay, map, Observable, tap } from 'rxjs';
 import { User } from '../../../features/user/user';
 import { UserService } from '../../../features/user/user.service';
 
@@ -19,28 +20,41 @@ export class AuthService
     private router: Router,
     private userService: UserService) { }
 
-  login(user: User): Observable<string | undefined>
+  login(user: User): Observable<LoginReturns>
   {
     return this.userService.getUsers$()
       .pipe(
         tap(val => console.log(' execute the api call ')),
-        delay(500),//mock delay of api call
-        switchMap(users =>
+        delay(500),       //mock delay of api call
+        map(users =>
         {
-          let foundUser = users.find(u => u.username === user.username && u.password === user.password)
-          if (foundUser)
+          const foundUser = users.find(u => u.username === user.username)
+          if (!foundUser)
           {
-            this.currentUser = foundUser;
-
-            this.isAuthenticated$.next(true);
-
-            if (this.nextRoute$.value !== null)
-              return this.nextRoute$.asObservable();
-            return of();
+            return {
+              success: false,
+              errors: [LOGIN_ERRORS.UserNotFound],
+              nextRoute: null
+            } as LoginReturns;
           }
-          return of();
-        })
-      );
+
+          if (foundUser.password !== user.password)
+          {
+            return {
+              success: false,
+              errors: [LOGIN_ERRORS.WrongPassword],
+              nextRoute: null
+            } as LoginReturns;
+          }
+
+          this.currentUser = foundUser;
+          this.isAuthenticated$.next(true);
+          return {
+            success: true,
+            errors: [],
+            nextRoute: this.nextRoute$.value ? this.nextRoute$.value : null
+          } as LoginReturns;
+        }))
   }
 
   logout()
@@ -54,3 +68,15 @@ export class AuthService
     this.nextRoute$.next(url);
   }
 }
+
+export interface LoginReturns
+{
+  success: boolean,
+  errors: ValidationErrors[],
+  nextRoute: string | null
+}
+
+export const LOGIN_ERRORS = {
+  UserNotFound: { key: 'UserNotFound', message: 'User does not exist.' } as ValidationErrors,
+  WrongPassword: { key: 'WrongPassword', message: 'Invalid password.' } as ValidationErrors,
+};

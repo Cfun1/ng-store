@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-header>
     <div mat-card-avatar class="user-avatar"></div>
-    <mat-card-title>{{ user.name.firstName | titlecase }} {{ user.name.lastName | titlecase }}</mat-card-title>
+    <mat-card-title>{{ user.name.firstname | titlecase }} {{ user.name.lastname | titlecase }}</mat-card-title>
     <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
   </mat-card-header>
 
@@ -12,7 +12,7 @@
       <input matInput
              id="username"
              [disabled]="!isEditMode"
-             [(ngModel)]="user.userName">
+             [(ngModel)]="user.username">
     </mat-form-field>
 
     <mat-form-field>

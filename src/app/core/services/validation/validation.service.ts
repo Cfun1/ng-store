@@ -23,6 +23,11 @@ export class ValidationService
     return (form.get(controlName)?.hasError('minLength') || form?.get(controlName)?.hasError('maxLength')) ?? false;
   }
 
+  validateCustom(form: FormGroup, controlName: string, error: string): boolean
+  {
+    return form.get(controlName)?.hasError(error) ?? false;
+  }
+
   getValidationError(form: FormGroup, controlName: string, errorName: string): string
   {
     return form.get(controlName)?.getError(errorName);

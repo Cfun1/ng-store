@@ -1,51 +1,51 @@
-<div class="col-md-6  justify-content-center container">
+<div class="col-md-6 justify-content-center container">
   <div class="card">
     <div class="card-header text-center">
       <h3>Login</h3>
     </div>
     <div class="card-body">
-      <form #loginForm="ngForm">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <ng-container *ngIf="!(isLoggedIn$ | async); else logoutTemp">
+          <div class="row">
+            <mat-form-field>
+              <mat-label for="userName">User Name</mat-label>
+              <input matInput formControlName="username" type="text" id="username" placeholder="Enter username">
+              <!-- Validation Errors -->
+              <mat-error *ngIf="validateRequired(loginForm, 'username')">User Name is required</mat-error>
+              <mat-error *ngIf="validateLengthRange(loginForm, 'username')">
+                User Name must be at least {{ getValidationError(loginForm,'username','minlength') }} characters
+              </mat-error>
 
-        <div class="row">
-          <mat-form-field>
-            <mat-label for="userName">User Name</mat-label>
-            <input matInput [ngModel]="initUserName" name="userName" #userNameField="ngModel"
-                   type="text"
-                   id="userName" required minlength="5"
-                   placeholder="Enter userName">
-            <!-- valdiation errors -->
-            <ng-container *ngIf="userNameField.errors && userNameField.touched">
-              <mat-error *ngIf="userNameField.errors "> {{userNameField.errors | json}} userName is required</mat-error>
-            </ng-container>
-          </mat-form-field>
-        </div>
-
-        <div class="form-group">
-          <div class="row gx-5">
-            <mat-form-field class="col mb-5">
-              <mat-label for="password">Password</mat-label>
-              <input matInput name="password" type="password" id="password" minlength="1"
-                     placeholder="Password"
-                     #password="ngModel" [ngModel]="initPassword" required>
-
-              <!-- valdiation errors -->
-              <ng-container *ngIf="password.errors && password.touched">
-                <mat-error *ngIf="password.errors['required']">password is required</mat-error>
-                <mat-error *ngIf="password.errors['minlength']">Password is too short (minimum length:
-                  {{password.errors['minlength'].requiredLength}})</mat-error>
-              </ng-container>
+              <mat-error *ngIf="validateCustom(loginForm, 'username', loginErrors.UserNotFound['key'])">
+                {{getValidationError(loginForm, 'username', loginErrors.UserNotFound['key'])}}
+              </mat-error>
             </mat-form-field>
           </div>
-        </div>
 
-        <ng-container *ngIf="!(isLoggedIn$ | async); else logoutTemp">
+          <div class="form-group">
+            <div class="row gx-5">
+              <mat-form-field class="col mb-5">
+                <mat-label for="password">Password</mat-label>
+                <input matInput formControlName="password" type="password" id="password" placeholder="Password">
+                <!-- Validation Errors -->
+                <mat-error *ngIf="validateRequired(loginForm, 'password')">Password is required</mat-error>
+                <mat-error *ngIf="validateLengthRange(loginForm, 'password')">
+                  Password is too short (minimum length:
+                  {{ getValidationError(loginForm,'password','minlength') }})
+                </mat-error>
+                <mat-error *ngIf="validateCustom(loginForm, 'password', loginErrors.WrongPassword['key'])">
+                  {{getValidationError(loginForm, 'password', loginErrors.WrongPassword['key'])}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
           <button mat-raised-button type="submit" class="w-100"
-                  (click)="login(loginForm.value.userName, loginForm.value.password)">Login</button>
+                  [disabled]="loginForm.invalid || isLogging">Login</button>
         </ng-container>
 
         <ng-template #logoutTemp>
-          <button mat-raised-button type="submit" class="btn btn-primary w-100"
-                  (click)="logout()">Logout</button>
+          <button mat-raised-button type="button" class="btn btn-primary w-100" (click)="logout()">Logout</button>
         </ng-template>
       </form>
     </div>
