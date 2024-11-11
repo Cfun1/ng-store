@@ -16,9 +16,19 @@
         </div>
       </mat-card-content>
     </div>
+
     <mat-card-actions>
-      <button mat-button color="primary" (click)="increaseQuantity(item)">+</button>
-      <button mat-button color="warn" (click)="decreaseQuantity(item)">-</button>
+      <button (click)="decreaseQuantity(item)"
+              mat-mini-fab color="warn"
+              matTooltip="Decrease quantity">
+        <mat-icon>horizontal_rule</mat-icon>
+      </button>
+
+      <button (click)="increaseQuantity(item)"
+              mat-mini-fab
+              matTooltip="Increase quantity">
+        <mat-icon>add</mat-icon>
+      </button>
       <button mat-raised-button color="accent" (click)="removeFromCart(item)">Remove</button>
     </mat-card-actions>
   </mat-card>
