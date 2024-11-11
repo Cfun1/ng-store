@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { BehaviorSubject, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Product } from '../product/product';
 
 
@@ -15,7 +15,9 @@ export interface CartItem
 })
 export class CartService implements Resolve<CartItem[]>
 {
-  cart: CartItem[] = [];
+  private cartItems: CartItem[] = []; // Local storage for cart items
+
+  cart$: BehaviorSubject<CartItem[]> = new BehaviorSubject<CartItem[]>([]);
   cartCount$: BehaviorSubject<number> = new BehaviorSubject(0);
 
   constructor() { }
@@ -27,7 +29,7 @@ export class CartService implements Resolve<CartItem[]>
 
   getCart$(): Observable<CartItem[]>
   {
-    return of(this.cart);
+    return this.cart$.asObservable();
   }
 
   getCartCount$(): Observable<number>
@@ -40,27 +42,46 @@ export class CartService implements Resolve<CartItem[]>
     return this.cartCount$.pipe(map(count => (count === 0)));
   }
 
-  addProduct(item: CartItem)
+  addProduct(item: CartItem): void
   {
-    let itemInCart = this.cart.find(i => i.product.id === item.product.id);
-    if (!itemInCart)
+    const existingItem = this.cartItems.find(i => i.product.id === item.product.id);
+    if (existingItem)
     {
-      this.cart.push(item);
-      this.cartCount$.next(this.cartCount$.value + 1);
-    }
-    else
+      existingItem.quantity += item.quantity;
+    } else
     {
-      itemInCart.quantity += item.quantity;
+      this.cartItems.push(item);
     }
+    this.updateCartState();
   }
 
   removeFromCart(item: CartItem)
   {
-    const index = this.cart.findIndex(i => i.product.id === item.product.id);
+    const index = this.cartItems.findIndex(i => i.product.id === item.product.id);
     if (index !== -1)
     {
-      this.cart.splice(index, 1);
-      this.cartCount$.next(this.cartCount$.value - 1);
+      console.log(this.cartItems);
+
+      this.cartItems.splice(index, 1);
+      console.log(this.cartItems);
+
     }
+    this.updateCartState();
+  }
+
+  updateCartItem(itemId: number, quantity: number): void
+  {
+    const itemIndex = this.cartItems.findIndex(i => i.product.id === itemId);
+    if (itemIndex !== -1)
+    {
+      this.cartItems[itemIndex].quantity = quantity;
+    }
+    this.updateCartState();
+  }
+
+  private updateCartState(): void
+  {
+    this.cart$.next([...this.cartItems]);
+    this.cartCount$.next(this.cartItems.length);
   }
 }

@@ -26,10 +26,11 @@
     <div class="col-md-4 d-flex align-items-stretch" *ngFor="let product of products">
       <mat-card class="mb-4 flex-fill">
         <div class="image-container">
-          <img class="img-thumbnail" mat-card-image [src]="product.image" alt="{{ product.title }}">
+          <img class="img-thumbnail" mat-card-image [src]="product.image" alt="{{ product.title }}"
+               [routerLink]="['product', product.id]" fragment="product-details">
         </div>
         <mat-card-title>
-          <a [routerLink]="['product', product.id]" fragment="product-details">
+          <a class="product-link" [routerLink]="['product', product.id]" fragment="product-details">
             {{ product.title}}
           </a>
         </mat-card-title>

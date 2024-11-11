@@ -24,7 +24,7 @@
 }
 
 .cover-img-container h1:hover {
-      color: gold;
+      color: rgb(255, 192, 91);
       cursor: pointer;
       transition: color 0.3s ease;
 }
@@ -61,6 +61,10 @@ mat-card-content {
       max-height: 200px;
       object-fit: contain;
       margin: 0;
+
+      &:hover {
+            cursor: pointer;
+      }
 }
 
 .image-container {
@@ -83,10 +87,12 @@ mat-card-actions {
       bottom: 30px;
       right: 20px;
       z-index: 2;
+      transition: scale 0.3s ease;
 
       &:hover {
             cursor: pointer;
             scale: 130%;
+            transition: scale 0.3s ease;
 
             /*Targeting mat-icon when cart-count-button is hovered*/
             mat-icon {
@@ -100,4 +106,14 @@ mat-card-actions {
       position: absolute;
       right: 0;
       margin-top: 20px;
+}
+
+.product-link {
+      text-decoration: none;
+      color: black;
+
+      &:hover {
+            color: rgb(65, 49, 236);
+            cursor: pointer;
+      }
 }
