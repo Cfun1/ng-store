@@ -7,9 +7,8 @@
   <div class="cover-img"></div>
 </div>
 
-<div id="product-details">
-  <router-outlet></router-outlet>
-</div>
+<!-- position doesn't matter, a material dialog/overlay will be shown-->
+<router-outlet></router-outlet>
 
 <button *ngIf="isLoggedIn$ | async" (click)="addProductClicked()"
         mat-fab class="add-product-button"
@@ -27,11 +26,11 @@
       <mat-card class="mb-4 flex-fill">
         <div class="image-container">
           <img class="img-thumbnail" mat-card-image [src]="product.image" alt="{{ product.title }}"
-               [routerLink]="['product', product.id]" fragment="product-details">
+               [routerLink]="['product', product.id]">
         </div>
         <mat-card-title>
-          <a class="product-link" [routerLink]="['product', product.id]" fragment="product-details">
-            {{ product.title}}
+          <a class="product-link" [routerLink]="['product', product.id]">
+            {{product.title}}
           </a>
         </mat-card-title>
         <mat-card-content>

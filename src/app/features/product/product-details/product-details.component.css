@@ -1,4 +1,30 @@
-@import url('../../../home/home.component.css');
+mat-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 2em 1.5em;
+}
+
+mat-card-content {
+      flex-grow: 1;
+}
+
+.img-thumbnail {
+      max-height: 200px;
+      object-fit: contain;
+      margin: 0;
+}
+
+.image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+}
+
+.price {
+      font-size: 1.5em;
+}
 
 #close-detail-component {
       position: absolute;

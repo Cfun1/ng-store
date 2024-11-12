@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit
     product: inject(ProductService),
     auth: inject(AuthService),
     snackBar: inject(MatSnackBar),
-    router: inject(Router)
+    router: inject(Router),
   };
   /***/
 
@@ -33,12 +33,14 @@ export class HomeComponent implements OnInit
 
   constructor() { }
 
+  //#region life cycle hooks
   ngOnInit()
   {
     this.loadProducts();
     this.cartCount$ = this.services.cart.getCartCount$();
     this.isCartEmpty$ = this.services.cart.isCartEmpty$();
   }
+  //#endregion
 
   loadProducts()
   {

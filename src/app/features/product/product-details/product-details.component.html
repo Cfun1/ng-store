@@ -1,21 +1,20 @@
-<h1>Product details</h1>
-<div class="container" *ngIf="(product$ | async) as product; else noProductFound">
-  <div class="d-flex mt-5">
-    <h1 class="text-center flex-grow-1">Products list</h1>
-  </div>
-
-  <div class="row main-products-grid">
+<ng-template #productDetails>
+  <h1 class="text-center">Product details</h1>
+  <div *ngIf="(product$ | async) as product; else noProductFound" class="row main-products-grid">
     <mat-card class="mb-4 flex-fill">
-
-      <button id="close-detail-component" mat-mini-fab color="primary" routerLink="/home">
+      <button id="close-detail-component" mat-mini-fab color="primary" mat-dialog-close
+              [mat-dialog-close]="true" routerLink="/home">
         <mat-icon>close</mat-icon>
       </button>
-      <div class="image-container">
-        <img class="img-thumbnail" mat-card-image [src]="product.image" alt="{{ product.title }}">
-      </div>
-      <mat-card-title>
-        {{ product.title }} </mat-card-title>
-      <mat-card-content>
+
+      <mat-card-title >
+        {{ product.title }}
+      </mat-card-title>
+
+      <mat-card-content class="mt-5">
+        <div class="image-container">
+          <img class="img-thumbnail" mat-card-image [src]="product.image" alt="{{ product.title }}">
+        </div>
         <p class="price"><strong>{{ product.price | currency }}</strong></p>
         <p> {{ product.description }}</p>
         <p><strong>Category: </strong> <span class="text-muted">{{ product.category }}</span></p>
@@ -23,7 +22,7 @@
       </mat-card-content>
     </mat-card>
   </div>
-</div>
+</ng-template>
 
 <ng-template #noProductFound>
   <span>No product Found! Something went wrong</span>
