@@ -1,0 +1,14 @@
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.router-outlet-container {
+    margin-bottom: 3em;
+    flex: 1 0;
+}
+
+app-footer {
+    margin-top: auto;
+}

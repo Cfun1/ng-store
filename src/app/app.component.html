@@ -1,10 +1,12 @@
-<app-header>
-  <app-navbar [title]="navbarTitle"></app-navbar>
-</app-header>
+<div class="main-wrapper">
+  <app-header>
+    <app-navbar [title]="navbarTitle"></app-navbar>
+  </app-header>
 
-<div class="router-outlet-container">
-  <router-outlet></router-outlet>
+  <div class="router-outlet-container">
+    <router-outlet></router-outlet>
+  </div>
+
+  <mat-divider></mat-divider>
+  <app-footer></app-footer>
 </div>
-
-<mat-divider></mat-divider>
-<app-footer></app-footer>
