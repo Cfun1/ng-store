@@ -24,3 +24,44 @@ progress::-webkit-progress-value {
             opacity: 1;
       }
 }
+
+/**/
+/* Footer Styling */
+.footer {
+      background-color: #222;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+      font-family: Arial, sans-serif;
+}
+
+.footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+}
+
+.footer p {
+      margin: 0;
+      font-size: 14px;
+}
+
+.footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+}
+
+.footer-links a {
+      color: #bbb;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+      color: #fff;
+}
